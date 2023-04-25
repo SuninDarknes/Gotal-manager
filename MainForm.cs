@@ -14,6 +14,10 @@ namespace Gotal_manager
 
         private void buttonStartCijenik_Click(object sender, EventArgs e)
         {
+            ProductsForm pf = new ProductsForm();
+            pf.ShowDialog();
         }
+
+
     }
 }

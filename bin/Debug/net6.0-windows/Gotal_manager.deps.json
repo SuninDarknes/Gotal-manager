@@ -7,8 +7,19 @@
   "targets": {
     ".NETCoreApp,Version=v6.0": {
       "Gotal_manager/1.0.0": {
+        "dependencies": {
+          "MySql.Data": "8.0.33.0"
+        },
         "runtime": {
           "Gotal_manager.dll": {}
+        }
+      },
+      "MySql.Data/8.0.33.0": {
+        "runtime": {
+          "MySql.Data.dll": {
+            "assemblyVersion": "8.0.33.0",
+            "fileVersion": "8.0.33.0"
+          }
         }
       }
     }
@@ -16,6 +27,11 @@
   "libraries": {
     "Gotal_manager/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MySql.Data/8.0.33.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

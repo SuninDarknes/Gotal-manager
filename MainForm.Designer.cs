@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.buttonStartSkladiste = new System.Windows.Forms.Button();
-            this.buttonStartCijenik = new System.Windows.Forms.Button();
+            this.buttonStartProducts = new System.Windows.Forms.Button();
             this.buttonStartKupci = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonStartDobavljaci = new System.Windows.Forms.Button();
@@ -49,15 +49,15 @@
             this.buttonStartSkladiste.Text = "Skladište";
             this.buttonStartSkladiste.UseVisualStyleBackColor = true;
             // 
-            // buttonStartCijenik
+            // buttonStartProducts
             // 
-            this.buttonStartCijenik.Location = new System.Drawing.Point(3, 3);
-            this.buttonStartCijenik.Name = "buttonStartCijenik";
-            this.buttonStartCijenik.Size = new System.Drawing.Size(75, 23);
-            this.buttonStartCijenik.TabIndex = 1;
-            this.buttonStartCijenik.Text = "Cijenik";
-            this.buttonStartCijenik.UseVisualStyleBackColor = true;
-            this.buttonStartCijenik.Click += new System.EventHandler(this.buttonStartCijenik_Click);
+            this.buttonStartProducts.Location = new System.Drawing.Point(3, 3);
+            this.buttonStartProducts.Name = "buttonStartProducts";
+            this.buttonStartProducts.Size = new System.Drawing.Size(75, 23);
+            this.buttonStartProducts.TabIndex = 1;
+            this.buttonStartProducts.Text = "Cijenik";
+            this.buttonStartProducts.UseVisualStyleBackColor = true;
+            this.buttonStartProducts.Click += new System.EventHandler(this.buttonStartCijenik_Click);
             // 
             // buttonStartKupci
             // 
@@ -70,7 +70,7 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.buttonStartCijenik);
+            this.flowLayoutPanel1.Controls.Add(this.buttonStartProducts);
             this.flowLayoutPanel1.Controls.Add(this.buttonStartSkladiste);
             this.flowLayoutPanel1.Controls.Add(this.buttonStartKupci);
             this.flowLayoutPanel1.Controls.Add(this.buttonStartDobavljaci);
@@ -146,7 +146,7 @@
         #endregion
 
         private Button buttonStartSkladiste;
-        private Button buttonStartCijenik;
+        private Button buttonStartProducts;
         private Button buttonStartKupci;
         private FlowLayoutPanel flowLayoutPanel1;
         private Button buttonStartDobavljaci;
