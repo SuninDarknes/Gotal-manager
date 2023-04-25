@@ -1,0 +1,17 @@
+D:\Projects\gotal.hr\managment_app\Gotal_manager\bin\Debug\net6.0-windows\Gotal_manager.exe
+D:\Projects\gotal.hr\managment_app\Gotal_manager\bin\Debug\net6.0-windows\Gotal_manager.deps.json
+D:\Projects\gotal.hr\managment_app\Gotal_manager\bin\Debug\net6.0-windows\Gotal_manager.runtimeconfig.json
+D:\Projects\gotal.hr\managment_app\Gotal_manager\bin\Debug\net6.0-windows\Gotal_manager.dll
+D:\Projects\gotal.hr\managment_app\Gotal_manager\bin\Debug\net6.0-windows\Gotal_manager.pdb
+D:\Projects\gotal.hr\managment_app\Gotal_manager\obj\Debug\net6.0-windows\Gotal_manager.csproj.AssemblyReference.cache
+D:\Projects\gotal.hr\managment_app\Gotal_manager\obj\Debug\net6.0-windows\Gotal_manager.csproj.GenerateResource.cache
+D:\Projects\gotal.hr\managment_app\Gotal_manager\obj\Debug\net6.0-windows\Gotal_manager.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\gotal.hr\managment_app\Gotal_manager\obj\Debug\net6.0-windows\Gotal_manager.AssemblyInfoInputs.cache
+D:\Projects\gotal.hr\managment_app\Gotal_manager\obj\Debug\net6.0-windows\Gotal_manager.AssemblyInfo.cs
+D:\Projects\gotal.hr\managment_app\Gotal_manager\obj\Debug\net6.0-windows\Gotal_manager.csproj.CoreCompileInputs.cache
+D:\Projects\gotal.hr\managment_app\Gotal_manager\obj\Debug\net6.0-windows\Gotal_manager.dll
+D:\Projects\gotal.hr\managment_app\Gotal_manager\obj\Debug\net6.0-windows\refint\Gotal_manager.dll
+D:\Projects\gotal.hr\managment_app\Gotal_manager\obj\Debug\net6.0-windows\Gotal_manager.pdb
+D:\Projects\gotal.hr\managment_app\Gotal_manager\obj\Debug\net6.0-windows\Gotal_manager.genruntimeconfig.cache
+D:\Projects\gotal.hr\managment_app\Gotal_manager\obj\Debug\net6.0-windows\ref\Gotal_manager.dll
+D:\Projects\gotal.hr\managment_app\Gotal_manager\obj\Debug\net6.0-windows\Gotal_manager.MainForm.resources
