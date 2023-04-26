@@ -22,7 +22,6 @@ D:\Projects\gotal.hr\Gotal-manager\bin\Debug\net6.0-windows\Gotal_manager.dll
 D:\Projects\gotal.hr\Gotal-manager\bin\Debug\net6.0-windows\Gotal_manager.pdb
 D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.csproj.AssemblyReference.cache
 D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.MainForm.resources
-D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.ProductsForm.resources
 D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.ProductUserControl.resources
 D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.csproj.GenerateResource.cache
 D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.GeneratedMSBuildEditorConfig.editorconfig
@@ -39,3 +38,4 @@ D:\Projects\gotal.hr\Gotal-manager\bin\Debug\net6.0-windows\MySql.Data.xml
 D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.csproj.CopyComplete
 D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.Properties.Resources.resources
 D:\Projects\gotal.hr\Gotal-manager\bin\Debug\net6.0-windows\Gotal_manager.dll.config
+D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.ProductsForm.resources

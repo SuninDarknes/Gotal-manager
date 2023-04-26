@@ -1,10 +1,12 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO.Compression;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,28 +16,69 @@ namespace Gotal_manager
 {
     public partial class ProductUserControl : UserControl
     {
+        public int id { get; set; } 
+        public int productNum{ get; set; }
+        public double ulaz { get; set; }
+        double dobit;
+        public double izlaz{ get; set; }
+        double profit;
+        public string naziv { get; set; }
 
-        public ProductUserControl()
+        int init_productNum;
+        double init_ulaz, init_izlaz;
+        string init_naziv;
+
+        public bool modified { get; set; }
+
+
+        public ProductUserControl(int _id=0,int _productNum=0, string _naziv = "", double _ulaz = 0, double _izlaz = 0)
         {
             InitializeComponent();
-        }
-        double ulaz, dobit, izlaz, profit;
-        public string ProductName
-        {
-            get { return TextBoxNaziv.Text; }
-            set { TextBoxNaziv.Text = value; }
+            modified = false;
+            this.id = _id;
+            this.productNum = _productNum;
+            this.ulaz = _ulaz;
+            this.izlaz = _izlaz;
+            this.naziv = _naziv;
+            this.init_productNum = _productNum;
+            this.init_ulaz = _ulaz;
+            this.init_izlaz = _izlaz;
+            this.init_naziv = _naziv;
+            this.Name = "PUC_" + _id;
+            TextBoxProductNumber.Text = productNum.ToString();
+            TextBoxNaziv.Text = naziv;
+            TextBoxProductNumber.TextChanged += new System.EventHandler(TextBox_isModified);
+            TextBoxNaziv.TextChanged += new System.EventHandler(TextBox_isModified);
+            TextBoxDobit.TextChanged += new System.EventHandler(TextBox_isModified);
+            TextBoxIzlazna.TextChanged += new System.EventHandler(TextBox_isModified);
+            TextBoxProfit.TextChanged += new System.EventHandler(TextBox_isModified);
+            TextBoxUlazna.TextChanged += new System.EventHandler(TextBox_isModified);
         }
 
-        public string EnterPrice
+        private void TextBox_isModified(object sender, EventArgs e)
         {
-            get { return TextBoxUlazna.Text; }
-            set { TextBoxUlazna.Text = value; ulaz = double.Parse(value); }
+            try
+            {
+                if (TextBoxProductNumber.Text==init_productNum.ToString() && TextBoxNaziv.Text == init_naziv && double.Parse(TextBoxUlazna.Text) == init_ulaz && double.Parse(TextBoxIzlazna.Text) == init_izlaz)
+                {
+                    BackColor = SystemColors.Control;
+                    modified = false;
+                }
+                else
+                {
+                    BackColor = Color.LawnGreen;
+                    modified = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
         }
-        public string SellPrice
-        {
-            get { return TextBoxIzlazna.Text; }
-            set { TextBoxIzlazna.Text = value; izlaz = double.Parse(value); }
-        }
+
+
         public RadioButton rbUlazna { set; get; }
         public RadioButton rbDobit { set; get; }
         public RadioButton rbIzlazna { set; get; }
@@ -102,6 +145,38 @@ namespace Gotal_manager
         }
         Dictionary<string, bool> textboxDict = new Dictionary<string, bool>();
 
+        private void RemoveButton_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.ProductsForm_ShowAlerts)
+            {
+                DialogResult result = MessageBox.Show("Jesi li siguran da želiš obrisati ovaj redak?", "Brisanje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    string query = "DELETE FROM `products` WHERE `ProductID` = @Id";
+                    using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", id);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+                    }
+
+                    this.Dispose();
+                }
+            }
+            else
+            {
+                string query = "DELETE FROM `products` WHERE `ProductID` = @Id";
+                using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                }
+                this.Dispose();
+            }
+
+        }
+
         private void TextBox_Enter(object sender, EventArgs e)
         {
             string name = ((TextBox)sender).Name;
@@ -109,10 +184,6 @@ namespace Gotal_manager
             textboxDict[name] = true;
         }
 
-        private void ProductUserControl_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void TextBoxDobit_TextChanged(object sender, EventArgs e)
         {
@@ -161,6 +232,16 @@ namespace Gotal_manager
             updateNums(TextBoxIzlazna);
         }
 
+        private void TextBoxNaziv_TextChanged(object sender, EventArgs e)
+        {
+            naziv = TextBoxNaziv.Text;
+        }
+
+        private void TextBoxProductNumber_TextChanged(object sender, EventArgs e)
+        {
+            productNum = int.Parse( TextBoxProductNumber.Text);
+        }
+
         private void TextBoxProfit_TextChanged(object sender, EventArgs e)
         {
             if (ParentForm == null) return;
@@ -183,6 +264,16 @@ namespace Gotal_manager
 
 
             updateNums(TextBoxProfit);
+        }
+        public void afterSave()
+        {
+            init_izlaz = izlaz;
+            init_naziv = naziv;
+            init_productNum = productNum;
+            init_ulaz = ulaz;
+            BackColor = SystemColors.Control;
+            modified = false;
+
         }
     }
 }

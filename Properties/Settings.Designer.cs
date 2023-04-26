@@ -34,5 +34,17 @@ namespace Gotal_manager.Properties {
                 this["ProductsForm_AutoCaclulate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ProductsForm_ShowAlerts {
+            get {
+                return ((bool)(this["ProductsForm_ShowAlerts"]));
+            }
+            set {
+                this["ProductsForm_ShowAlerts"] = value;
+            }
+        }
     }
 }

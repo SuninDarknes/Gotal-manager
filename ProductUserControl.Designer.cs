@@ -33,20 +33,22 @@
             this.TextBoxDobit = new System.Windows.Forms.TextBox();
             this.TextBoxIzlazna = new System.Windows.Forms.TextBox();
             this.TextBoxProfit = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.RemoveButton = new System.Windows.Forms.Button();
+            this.TextBoxProductNumber = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // TextBoxNaziv
             // 
-            this.TextBoxNaziv.Location = new System.Drawing.Point(3, 3);
+            this.TextBoxNaziv.Location = new System.Drawing.Point(62, 4);
             this.TextBoxNaziv.Name = "TextBoxNaziv";
             this.TextBoxNaziv.Size = new System.Drawing.Size(300, 23);
             this.TextBoxNaziv.TabIndex = 0;
+            this.TextBoxNaziv.TextChanged += new System.EventHandler(this.TextBoxNaziv_TextChanged);
             this.TextBoxNaziv.Enter += new System.EventHandler(this.TextBox_Enter);
             // 
             // TextBoxUlazna
             // 
-            this.TextBoxUlazna.Location = new System.Drawing.Point(309, 3);
+            this.TextBoxUlazna.Location = new System.Drawing.Point(368, 4);
             this.TextBoxUlazna.Name = "TextBoxUlazna";
             this.TextBoxUlazna.Size = new System.Drawing.Size(125, 23);
             this.TextBoxUlazna.TabIndex = 1;
@@ -54,7 +56,7 @@
             // 
             // TextBoxDobit
             // 
-            this.TextBoxDobit.Location = new System.Drawing.Point(440, 3);
+            this.TextBoxDobit.Location = new System.Drawing.Point(499, 4);
             this.TextBoxDobit.Name = "TextBoxDobit";
             this.TextBoxDobit.Size = new System.Drawing.Size(75, 23);
             this.TextBoxDobit.TabIndex = 2;
@@ -62,7 +64,7 @@
             // 
             // TextBoxIzlazna
             // 
-            this.TextBoxIzlazna.Location = new System.Drawing.Point(521, 3);
+            this.TextBoxIzlazna.Location = new System.Drawing.Point(580, 4);
             this.TextBoxIzlazna.Name = "TextBoxIzlazna";
             this.TextBoxIzlazna.Size = new System.Drawing.Size(125, 23);
             this.TextBoxIzlazna.TabIndex = 3;
@@ -70,35 +72,44 @@
             // 
             // TextBoxProfit
             // 
-            this.TextBoxProfit.Location = new System.Drawing.Point(652, 3);
+            this.TextBoxProfit.Location = new System.Drawing.Point(711, 4);
             this.TextBoxProfit.Name = "TextBoxProfit";
             this.TextBoxProfit.Size = new System.Drawing.Size(125, 23);
             this.TextBoxProfit.TabIndex = 4;
             this.TextBoxProfit.TextChanged += new System.EventHandler(this.TextBoxProfit_TextChanged);
             // 
-            // button1
+            // RemoveButton
             // 
-            this.button1.Image = global::Gotal_manager.Properties.Resources.cross;
-            this.button1.Location = new System.Drawing.Point(783, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(23, 23);
-            this.button1.TabIndex = 5;
-            this.button1.UseVisualStyleBackColor = false;
+            this.RemoveButton.Image = global::Gotal_manager.Properties.Resources.cross;
+            this.RemoveButton.Location = new System.Drawing.Point(842, 3);
+            this.RemoveButton.Name = "RemoveButton";
+            this.RemoveButton.Size = new System.Drawing.Size(23, 23);
+            this.RemoveButton.TabIndex = 5;
+            this.RemoveButton.UseVisualStyleBackColor = false;
+            this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
+            // 
+            // TextBoxProductNumber
+            // 
+            this.TextBoxProductNumber.Location = new System.Drawing.Point(3, 4);
+            this.TextBoxProductNumber.Name = "TextBoxProductNumber";
+            this.TextBoxProductNumber.Size = new System.Drawing.Size(53, 23);
+            this.TextBoxProductNumber.TabIndex = 6;
+            this.TextBoxProductNumber.TextChanged += new System.EventHandler(this.TextBoxProductNumber_TextChanged);
             // 
             // ProductUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.TextBoxProductNumber);
+            this.Controls.Add(this.RemoveButton);
             this.Controls.Add(this.TextBoxProfit);
             this.Controls.Add(this.TextBoxIzlazna);
             this.Controls.Add(this.TextBoxDobit);
             this.Controls.Add(this.TextBoxUlazna);
             this.Controls.Add(this.TextBoxNaziv);
             this.Name = "ProductUserControl";
-            this.Size = new System.Drawing.Size(810, 29);
-            this.Load += new System.EventHandler(this.ProductUserControl_Load);
+            this.Size = new System.Drawing.Size(868, 29);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -111,6 +122,7 @@
         private TextBox TextBoxDobit;
         private TextBox TextBoxIzlazna;
         private TextBox TextBoxProfit;
-        private Button button1;
+        private Button RemoveButton;
+        private TextBox TextBoxProductNumber;
     }
 }

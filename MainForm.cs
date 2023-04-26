@@ -18,6 +18,9 @@ namespace Gotal_manager
             pf.ShowDialog();
         }
 
+        private void buttonStartSkladiste_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
