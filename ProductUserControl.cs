@@ -37,29 +37,29 @@ namespace Gotal_manager
             set { TextBoxIzlazna.Text = value; izlaz = double.Parse(value); }
         }
         public RadioButton rbUlazna { set; get; }
-        public RadioButton rbDobit {set; get; }
-    public RadioButton rbIzlazna{set; get; }
-public RadioButton rbProfit {set; get; }
-        private void updateNums(TextBox sender=null)
+        public RadioButton rbDobit { set; get; }
+        public RadioButton rbIzlazna { set; get; }
+        public RadioButton rbProfit { set; get; }
+        private void updateNums(TextBox sender = null)
         {
-            if(sender!= TextBoxUlazna) TextBoxUlazna.Text = Math.Round(ulaz, 4).ToString();
+            if (sender != TextBoxUlazna) TextBoxUlazna.Text = Math.Round(ulaz, 4).ToString();
             if (sender != TextBoxIzlazna) TextBoxIzlazna.Text = Math.Round(izlaz, 4).ToString();
             if (sender != TextBoxDobit) TextBoxDobit.Text = Math.Round(dobit * 100, 4).ToString();
             if (sender != TextBoxProfit) TextBoxProfit.Text = Math.Round(profit, 4).ToString();
-    }
+        }
 
         public void InitPrice()
         {
             try
             {
-                dobit =(izlaz- ulaz) / ulaz;
+                dobit = (izlaz - ulaz) / ulaz;
                 profit = izlaz - ulaz;
                 updateNums();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
-                MessageBox.Show(TextBoxNaziv.Text+"\n"+ex.Message, "ERROR-DEV", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(TextBoxNaziv.Text + "\n" + ex.Message, "ERROR-DEV", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -69,31 +69,49 @@ public RadioButton rbProfit {set; get; }
             if (ParentForm == null) return;
             Label err = (Label)ParentForm.Controls.Find("SmallErrorLabel", true)[0];
             if (err.Text == "Initializing") return;
-            try { 
+            try
+            {
                 ulaz = double.Parse(TextBoxUlazna.Text);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                
-                err.Text="Krivi zapis: "+ TextBoxUlazna.Text;
+
+                err.Text = "Krivi zapis: " + TextBoxUlazna.Text;
                 return;
             }
             err.Text = "";
+            if (!Properties.Settings.Default.ProductsForm_AutoCaclulate) return;
 
-             if (((RadioButton)ParentForm.Controls.Find("DobitLock", true)[0]).Checked) {
+            if (((RadioButton)ParentForm.Controls.Find("DobitLock", true)[0]).Checked)
+            {
                 izlaz = ulaz * (dobit + 1);
                 profit = izlaz - ulaz;
             }
-             if (((RadioButton)ParentForm.Controls.Find("IzlazLock", true)[0]).Checked){
+            if (((RadioButton)ParentForm.Controls.Find("IzlazLock", true)[0]).Checked)
+            {
                 dobit = (izlaz - ulaz) / ulaz;
                 profit = izlaz - ulaz;
             }
-             if (((RadioButton)ParentForm.Controls.Find("ProfitLock", true)[0]).Checked){
-                dobit = (izlaz - ulaz) / ulaz; 
-                izlaz = ulaz+profit;
-                
+            if (((RadioButton)ParentForm.Controls.Find("ProfitLock", true)[0]).Checked)
+            {
+                dobit = (izlaz - ulaz) / ulaz;
+                izlaz = ulaz + profit;
+
             }
             updateNums(TextBoxUlazna);
+        }
+        Dictionary<string, bool> textboxDict = new Dictionary<string, bool>();
+
+        private void TextBox_Enter(object sender, EventArgs e)
+        {
+            string name = ((TextBox)sender).Name;
+
+            textboxDict[name] = true;
+        }
+
+        private void ProductUserControl_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void TextBoxDobit_TextChanged(object sender, EventArgs e)
@@ -103,7 +121,7 @@ public RadioButton rbProfit {set; get; }
             if (err.Text == "Initializing") return;
             try
             {
-                dobit = double.Parse(TextBoxDobit.Text)/100;
+                dobit = double.Parse(TextBoxDobit.Text) / 100;
             }
             catch (Exception ex)
             {
@@ -112,6 +130,7 @@ public RadioButton rbProfit {set; get; }
                 return;
             }
             err.Text = "";
+            if (!Properties.Settings.Default.ProductsForm_AutoCaclulate) return;
             izlaz = ulaz * (dobit + 1);
             profit = izlaz - ulaz;
 
@@ -135,6 +154,7 @@ public RadioButton rbProfit {set; get; }
                 return;
             }
             err.Text = "";
+            if (!Properties.Settings.Default.ProductsForm_AutoCaclulate) return;
             dobit = (izlaz - ulaz) / ulaz;
             profit = izlaz - ulaz;
 
@@ -157,9 +177,10 @@ public RadioButton rbProfit {set; get; }
                 return;
             }
             err.Text = "";
-            izlaz =  ulaz+profit;
+            if (!Properties.Settings.Default.ProductsForm_AutoCaclulate) return;
+            izlaz = ulaz + profit;
             dobit = (izlaz - ulaz) / ulaz;
-            
+
 
             updateNums(TextBoxProfit);
         }

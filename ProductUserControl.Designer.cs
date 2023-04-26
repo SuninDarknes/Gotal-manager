@@ -33,6 +33,7 @@
             this.TextBoxDobit = new System.Windows.Forms.TextBox();
             this.TextBoxIzlazna = new System.Windows.Forms.TextBox();
             this.TextBoxProfit = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TextBoxNaziv
@@ -41,6 +42,7 @@
             this.TextBoxNaziv.Name = "TextBoxNaziv";
             this.TextBoxNaziv.Size = new System.Drawing.Size(300, 23);
             this.TextBoxNaziv.TabIndex = 0;
+            this.TextBoxNaziv.Enter += new System.EventHandler(this.TextBox_Enter);
             // 
             // TextBoxUlazna
             // 
@@ -74,17 +76,29 @@
             this.TextBoxProfit.TabIndex = 4;
             this.TextBoxProfit.TextChanged += new System.EventHandler(this.TextBoxProfit_TextChanged);
             // 
+            // button1
+            // 
+            this.button1.Image = global::Gotal_manager.Properties.Resources.cross;
+            this.button1.Location = new System.Drawing.Point(783, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(23, 23);
+            this.button1.TabIndex = 5;
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // ProductUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.TextBoxProfit);
             this.Controls.Add(this.TextBoxIzlazna);
             this.Controls.Add(this.TextBoxDobit);
             this.Controls.Add(this.TextBoxUlazna);
             this.Controls.Add(this.TextBoxNaziv);
             this.Name = "ProductUserControl";
-            this.Size = new System.Drawing.Size(780, 29);
+            this.Size = new System.Drawing.Size(810, 29);
+            this.Load += new System.EventHandler(this.ProductUserControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -97,5 +111,6 @@
         private TextBox TextBoxDobit;
         private TextBox TextBoxIzlazna;
         private TextBox TextBoxProfit;
+        private Button button1;
     }
 }

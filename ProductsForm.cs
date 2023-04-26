@@ -15,6 +15,7 @@ namespace Gotal_manager
     
     public partial class ProductsForm : Form
     {
+        bool unsavedChanges = false;
         public ProductsForm()
         {
             InitializeComponent();
@@ -39,7 +40,6 @@ namespace Gotal_manager
                 userControl.EnterPrice = enterPrice;
                 userControl.SellPrice = sellPrice;
                 userControl.Location = new Point(3,3+(29*index));
-                
                 userControl.rbDobit =DobitLock; 
                 userControl.rbIzlazna= IzlazLock; 
                 userControl.rbProfit =  ProfitLock;
@@ -47,6 +47,7 @@ namespace Gotal_manager
                 userControl.InitPrice();
 
                 index++;
+
             }
 
             reader.Close();
@@ -57,6 +58,9 @@ namespace Gotal_manager
             IzlazLock.Image= Properties.Resources.locked;
             ProfitLock.Appearance= Appearance.Button;
             ProfitLock.Image= Properties.Resources.unlocked;
+
+            automatskoRačunanjeToolStripMenuItem.Checked = Properties.Settings.Default.ProductsForm_AutoCaclulate;
+
 
             SmallErrorLabel.Text = "";
         }
@@ -73,9 +77,32 @@ namespace Gotal_manager
             }
         }
 
-        private void ProductsForm_Load(object sender, EventArgs e)
+        private void ProductsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (unsavedChanges)
+            {
+                DialogResult result = MessageBox.Show("Spremi prije odlaska?", "Nespremljene Promjene", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    SaveChanges();
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
 
+        private void SaveChanges()
+        {
+            // Save changes here
+            unsavedChanges = false;
+        }
+
+        private void automatskoRačunanjeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ProductsForm_AutoCaclulate = !automatskoRačunanjeToolStripMenuItem.Checked;
+            automatskoRačunanjeToolStripMenuItem.Checked= !automatskoRačunanjeToolStripMenuItem.Checked;
         }
     }
 }
