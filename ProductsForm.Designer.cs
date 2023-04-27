@@ -46,6 +46,7 @@
             this.MainFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.NazivSearchTextBox = new System.Windows.Forms.TextBox();
             this.BrojLabel = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,9 +101,9 @@
             this.LabelRoba.AutoSize = true;
             this.LabelRoba.Location = new System.Drawing.Point(79, 24);
             this.LabelRoba.Name = "LabelRoba";
-            this.LabelRoba.Size = new System.Drawing.Size(34, 15);
+            this.LabelRoba.Size = new System.Drawing.Size(91, 15);
             this.LabelRoba.TabIndex = 1;
-            this.LabelRoba.Text = "Roba";
+            this.LabelRoba.Text = "Naziv Proizvoda";
             // 
             // IzlazLock
             // 
@@ -143,7 +144,7 @@
             this.spremiToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1168, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(958, 24);
             this.menuStrip1.TabIndex = 8;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -194,7 +195,7 @@
             this.MainFlowPanel.AutoScroll = true;
             this.MainFlowPanel.Location = new System.Drawing.Point(12, 71);
             this.MainFlowPanel.Name = "MainFlowPanel";
-            this.MainFlowPanel.Size = new System.Drawing.Size(893, 356);
+            this.MainFlowPanel.Size = new System.Drawing.Size(936, 356);
             this.MainFlowPanel.TabIndex = 9;
             // 
             // NazivSearchTextBox
@@ -214,11 +215,21 @@
             this.BrojLabel.TabIndex = 10;
             this.BrojLabel.Text = "Broj";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(858, 24);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(49, 15);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Porez %";
+            // 
             // ProductsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1168, 450);
+            this.ClientSize = new System.Drawing.Size(958, 450);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.BrojLabel);
             this.Controls.Add(this.AddRowButton);
             this.Controls.Add(this.NazivSearchTextBox);
@@ -235,7 +246,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ProductsForm";
-            this.Text = "ProductsForm";
+            this.Text = "Cijenik";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProductsForm_FormClosing);
             this.SizeChanged += new System.EventHandler(this.ProductsForm_SizeChanged);
             this.menuStrip1.ResumeLayout(false);
@@ -264,5 +275,6 @@
         private FlowLayoutPanel MainFlowPanel;
         private TextBox NazivSearchTextBox;
         private Label BrojLabel;
+        private Label label5;
     }
 }

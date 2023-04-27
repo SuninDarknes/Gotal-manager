@@ -16,5 +16,6 @@ namespace Gotal_manager
         {
             InitializeComponent();
         }
+
     }
 }

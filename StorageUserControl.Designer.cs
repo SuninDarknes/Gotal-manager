@@ -28,36 +28,135 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelID = new System.Windows.Forms.Label();
+            this.labelBrojProizvoda = new System.Windows.Forms.Label();
+            this.labelNaziv = new System.Windows.Forms.Label();
+            this.labelSveukupnoKomada = new System.Windows.Forms.Label();
+            this.labelCijena = new System.Windows.Forms.Label();
+            this.labelSveukupnoCijena = new System.Windows.Forms.Label();
+            this.labelRazduzeno = new System.Windows.Forms.Label();
+            this.labelRazduzenoCijena = new System.Windows.Forms.Label();
+            this.labelStanje = new System.Windows.Forms.Label();
+            this.labelStanjeCijena = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // labelID
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(97, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.labelID.AutoSize = true;
+            this.labelID.Location = new System.Drawing.Point(3, 7);
+            this.labelID.Name = "labelID";
+            this.labelID.Size = new System.Drawing.Size(18, 15);
+            this.labelID.TabIndex = 0;
+            this.labelID.Text = "ID";
+            // 
+            // labelBrojProizvoda
+            // 
+            this.labelBrojProizvoda.AutoSize = true;
+            this.labelBrojProizvoda.Location = new System.Drawing.Point(53, 7);
+            this.labelBrojProizvoda.Name = "labelBrojProizvoda";
+            this.labelBrojProizvoda.Size = new System.Drawing.Size(28, 15);
+            this.labelBrojProizvoda.TabIndex = 2;
+            this.labelBrojProizvoda.Text = "Broj";
+            // 
+            // labelNaziv
+            // 
+            this.labelNaziv.AutoSize = true;
+            this.labelNaziv.Location = new System.Drawing.Point(103, 7);
+            this.labelNaziv.Name = "labelNaziv";
+            this.labelNaziv.Size = new System.Drawing.Size(36, 15);
+            this.labelNaziv.TabIndex = 3;
+            this.labelNaziv.Text = "Naziv";
+            // 
+            // labelSveukupnoKomada
+            // 
+            this.labelSveukupnoKomada.AutoSize = true;
+            this.labelSveukupnoKomada.Location = new System.Drawing.Point(403, 7);
+            this.labelSveukupnoKomada.Name = "labelSveukupnoKomada";
+            this.labelSveukupnoKomada.Size = new System.Drawing.Size(51, 15);
+            this.labelSveukupnoKomada.TabIndex = 4;
+            this.labelSveukupnoKomada.Text = "Komada";
+            // 
+            // labelCijena
+            // 
+            this.labelCijena.AutoSize = true;
+            this.labelCijena.Location = new System.Drawing.Point(503, 7);
+            this.labelCijena.Name = "labelCijena";
+            this.labelCijena.Size = new System.Drawing.Size(59, 15);
+            this.labelCijena.TabIndex = 5;
+            this.labelCijena.Text = "Komad(€)";
+            // 
+            // labelSveukupnoCijena
+            // 
+            this.labelSveukupnoCijena.AutoSize = true;
+            this.labelSveukupnoCijena.Location = new System.Drawing.Point(603, 7);
+            this.labelSveukupnoCijena.Name = "labelSveukupnoCijena";
+            this.labelSveukupnoCijena.Size = new System.Drawing.Size(80, 15);
+            this.labelSveukupnoCijena.TabIndex = 6;
+            this.labelSveukupnoCijena.Text = "Sveukupno(€)";
+            // 
+            // labelRazduzeno
+            // 
+            this.labelRazduzeno.AutoSize = true;
+            this.labelRazduzeno.Location = new System.Drawing.Point(703, 7);
+            this.labelRazduzeno.Name = "labelRazduzeno";
+            this.labelRazduzeno.Size = new System.Drawing.Size(64, 15);
+            this.labelRazduzeno.TabIndex = 7;
+            this.labelRazduzeno.Text = "Razduženo";
+            // 
+            // labelRazduzenoCijena
+            // 
+            this.labelRazduzenoCijena.AutoSize = true;
+            this.labelRazduzenoCijena.Location = new System.Drawing.Point(803, 7);
+            this.labelRazduzenoCijena.Name = "labelRazduzenoCijena";
+            this.labelRazduzenoCijena.Size = new System.Drawing.Size(78, 15);
+            this.labelRazduzenoCijena.TabIndex = 8;
+            this.labelRazduzenoCijena.Text = "Razduženo(€)";
+            // 
+            // labelStanje
+            // 
+            this.labelStanje.AutoSize = true;
+            this.labelStanje.Location = new System.Drawing.Point(903, 7);
+            this.labelStanje.Name = "labelStanje";
+            this.labelStanje.Size = new System.Drawing.Size(39, 15);
+            this.labelStanje.TabIndex = 9;
+            this.labelStanje.Text = "Stanje";
+            // 
+            // labelStanjeCijena
+            // 
+            this.labelStanjeCijena.AutoSize = true;
+            this.labelStanjeCijena.Location = new System.Drawing.Point(1003, 7);
+            this.labelStanjeCijena.Name = "labelStanjeCijena";
+            this.labelStanjeCijena.Size = new System.Drawing.Size(53, 15);
+            this.labelStanjeCijena.TabIndex = 10;
+            this.labelStanjeCijena.Text = "Stanje(€)";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Location = new System.Drawing.Point(1103, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(40, 23);
             this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
+            this.button1.Text = "Info.";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // StorageUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelStanjeCijena);
+            this.Controls.Add(this.labelStanje);
+            this.Controls.Add(this.labelRazduzenoCijena);
+            this.Controls.Add(this.labelRazduzeno);
+            this.Controls.Add(this.labelSveukupnoCijena);
+            this.Controls.Add(this.labelCijena);
+            this.Controls.Add(this.labelSveukupnoKomada);
+            this.Controls.Add(this.labelNaziv);
+            this.Controls.Add(this.labelBrojProizvoda);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelID);
             this.Name = "StorageUserControl";
-            this.Size = new System.Drawing.Size(218, 34);
+            this.Size = new System.Drawing.Size(1146, 29);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -65,7 +164,16 @@
 
         #endregion
 
-        private Label label1;
+        private Label labelID;
+        private Label labelBrojProizvoda;
+        private Label labelNaziv;
+        private Label labelSveukupnoKomada;
+        private Label labelCijena;
+        private Label labelSveukupnoCijena;
+        private Label labelRazduzeno;
+        private Label labelRazduzenoCijena;
+        private Label labelStanje;
+        private Label labelStanjeCijena;
         private Button button1;
     }
 }

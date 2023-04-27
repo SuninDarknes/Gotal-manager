@@ -23,15 +23,16 @@ namespace Gotal_manager
         public double izlaz{ get; set; }
         double profit;
         public string naziv { get; set; }
+        public double tax { get; set; }
 
         int init_productNum;
-        double init_ulaz, init_izlaz;
+        double init_ulaz, init_izlaz, init_tax;
         string init_naziv;
 
         public bool modified { get; set; }
 
 
-        public ProductUserControl(int _id=0,int _productNum=0, string _naziv = "", double _ulaz = 0, double _izlaz = 0)
+        public ProductUserControl(int _id=0,int _productNum=0, string _naziv = "", double _ulaz = 0, double _izlaz = 0,double _tax=0)
         {
             InitializeComponent();
             modified = false;
@@ -40,26 +41,30 @@ namespace Gotal_manager
             this.ulaz = _ulaz;
             this.izlaz = _izlaz;
             this.naziv = _naziv;
+            this.tax = _tax;
             this.init_productNum = _productNum;
             this.init_ulaz = _ulaz;
             this.init_izlaz = _izlaz;
             this.init_naziv = _naziv;
+            this.init_tax = _tax;
             this.Name = "PUC_" + _id;
             TextBoxProductNumber.Text = productNum.ToString();
             TextBoxNaziv.Text = naziv;
+            TextBoxPorez.Text = tax.ToString();
             TextBoxProductNumber.TextChanged += new System.EventHandler(TextBox_isModified);
             TextBoxNaziv.TextChanged += new System.EventHandler(TextBox_isModified);
             TextBoxDobit.TextChanged += new System.EventHandler(TextBox_isModified);
             TextBoxIzlazna.TextChanged += new System.EventHandler(TextBox_isModified);
             TextBoxProfit.TextChanged += new System.EventHandler(TextBox_isModified);
             TextBoxUlazna.TextChanged += new System.EventHandler(TextBox_isModified);
+            TextBoxPorez.TextChanged += new System.EventHandler(TextBox_isModified);
         }
 
         private void TextBox_isModified(object sender, EventArgs e)
         {
             try
             {
-                if (TextBoxProductNumber.Text==init_productNum.ToString() && TextBoxNaziv.Text == init_naziv && double.Parse(TextBoxUlazna.Text) == init_ulaz && double.Parse(TextBoxIzlazna.Text) == init_izlaz)
+                if (TextBoxProductNumber.Text==init_productNum.ToString() && TextBoxNaziv.Text == init_naziv && double.Parse(TextBoxUlazna.Text) == init_ulaz && double.Parse(TextBoxIzlazna.Text) == init_izlaz && init_tax == double.Parse(TextBoxPorez.Text))
                 {
                     BackColor = SystemColors.Control;
                     modified = false;
@@ -152,7 +157,7 @@ namespace Gotal_manager
                 DialogResult result = MessageBox.Show("Jesi li siguran da želiš obrisati ovaj redak?", "Brisanje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    string query = "DELETE FROM `products` WHERE `ProductID` = @Id";
+                    string query = "UPDATE products SET Arhivirano=1 WHERE ProizvodID = @Id ";
                     using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
                     {
                         command.Parameters.AddWithValue("@Id", id);
@@ -165,7 +170,7 @@ namespace Gotal_manager
             }
             else
             {
-                string query = "DELETE FROM `products` WHERE `ProductID` = @Id";
+                string query = "UPDATE products SET Arhivirano=1 WHERE ProizvodID = @Id";
                 using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
@@ -265,12 +270,32 @@ namespace Gotal_manager
 
             updateNums(TextBoxProfit);
         }
+
+        private void TextBoxPorez_TextChanged(object sender, EventArgs e)
+        {
+            if (ParentForm == null) return;
+            Label err = (Label)ParentForm.Controls.Find("SmallErrorLabel", true)[0];
+            if (err.Text == "Initializing") return;
+            try
+            {
+                tax = double.Parse(TextBoxPorez.Text);
+            }
+            catch (Exception ex)
+            {
+
+                err.Text = "Krivi zapis: " + TextBoxPorez.Text;
+                return;
+            }
+            err.Text = "";
+        }
+
         public void afterSave()
         {
             init_izlaz = izlaz;
             init_naziv = naziv;
             init_productNum = productNum;
             init_ulaz = ulaz;
+            init_tax = tax;
             BackColor = SystemColors.Control;
             modified = false;
 

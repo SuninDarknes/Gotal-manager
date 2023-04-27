@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,19 +32,20 @@ namespace Gotal_manager
             prikazujUpozorenjaToolStripMenuItem.Checked = Properties.Settings.Default.ProductsForm_ShowAlerts;
 
 
-
-            string sql = "SELECT * FROM products ORDER BY ProductNum ASC;";
+            string sql = "SELECT * FROM products WHERE Arhivirano=0 ORDER BY BrojProizvoda ASC;";
             MySqlCommand command = new MySqlCommand(sql, DatabaseManager.Connection);
             MySqlDataReader reader = command.ExecuteReader();
 
             while (reader.Read())
             {
-                int id = reader.GetInt32("ProductID");
-                int productNumber = reader.GetInt32("ProductNum");
-                string name = reader.GetString("Name");
-                double enterPrice = reader.GetDouble("EnterPrice");
-                double sellPrice = reader.GetDouble("SellPrice");
-                ProductUserControl userControl = new ProductUserControl(id, productNumber, name, enterPrice, sellPrice);
+                int id = reader.GetInt32("ProizvodID");
+                int productNumber = reader.GetInt32("BrojProizvoda");
+                string name = reader.GetString("Naziv");
+                double enterPrice = reader.GetDouble("UlaznaCijena");
+                double sellPrice = reader.GetDouble("IzlaznaCijena");
+                double tax = reader.GetDouble("Porez");
+
+                ProductUserControl userControl = new ProductUserControl(id, productNumber, name, enterPrice, sellPrice, tax);
                 userControl.rbDobit = DobitLock;
                 userControl.rbIzlazna = IzlazLock;
                 userControl.rbProfit = ProfitLock;
@@ -78,12 +80,12 @@ namespace Gotal_manager
 
         private void ProductsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            bool unsavedChanges=false;
+            bool unsavedChanges = false;
             foreach (ProductUserControl puc in productUserControls)
-                if (puc.modified) 
-                { 
+                if (puc.modified)
+                {
                     unsavedChanges = true;
-                    break; 
+                    break;
                 }
             if (unsavedChanges)
             {
@@ -101,24 +103,25 @@ namespace Gotal_manager
 
         private void SaveChanges()
         {
-            foreach(ProductUserControl puc in productUserControls)
+            foreach (ProductUserControl puc in productUserControls)
             {
                 if (!puc.modified) continue;
-                string query = "UPDATE `products` SET `ProductNum` = @ProductNum, `Name` = @Name, `EnterPrice` = @EnterPrice, `SellPrice` = @SellPrice WHERE `ProductID` = @id";
-                
-                    using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
-                    {
-                        command.Parameters.AddWithValue("@ProductNum", puc.productNum);
-                        command.Parameters.AddWithValue("@Name", puc.naziv);
-                    command.Parameters.AddWithValue("@EnterPrice", puc.ulaz);
-                    command.Parameters.AddWithValue("@SellPrice", puc.izlaz);
-                    command.Parameters.AddWithValue("@id", puc.id); 
+                string query = "UPDATE products SET BrojProizvoda = @BrojProizvoda, Naziv = @Naziv, UlaznaCijena = @UlaznaCijena, IzlaznaCijena = @IzlaznaCijena, Porez = @Porez WHERE ProizvodID = @id";
 
-                        int rowsAffected = command.ExecuteNonQuery();
+                using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
+                {
+                    command.Parameters.AddWithValue("@BrojProizvoda", puc.productNum);
+                    command.Parameters.AddWithValue("@Naziv", puc.naziv);
+                    command.Parameters.AddWithValue("@UlaznaCijena", puc.ulaz);
+                    command.Parameters.AddWithValue("@IzlaznaCijena", puc.izlaz);
+                    command.Parameters.AddWithValue("@Porez", puc.tax);
+                    command.Parameters.AddWithValue("@id", puc.id);
+
+                    int rowsAffected = command.ExecuteNonQuery();
                     puc.afterSave();
-                   
-                    }
-                
+
+                }
+
             }
         }
 
@@ -136,33 +139,32 @@ namespace Gotal_manager
 
         private void AddRowButton_Click(object sender, EventArgs e)
         {
-            string query = "INSERT INTO `products` (`ProductNum`,`Name`, `EnterPrice`, `SellPrice`) VALUES (@ProductNum, @Name, @EnterPrice, @SellPrice)";
+            string query = "INSERT INTO products (BrojProizvoda,Naziv) VALUES (@BrojProizvoda, @Naziv)";
 
             using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
             {
-                command.Parameters.AddWithValue("@ProductNum", productUserControls.Count);
-                command.Parameters.AddWithValue("@Name", "");
-                command.Parameters.AddWithValue("@EnterPrice", 0);
-                command.Parameters.AddWithValue("@SellPrice", 0);
+                command.Parameters.AddWithValue("@BrojProizvoda", productUserControls.Count);
+                command.Parameters.AddWithValue("@Naziv", "");
 
                 int rowsAffected = command.ExecuteNonQuery();
             }
 
 
 
-            string sql = "SELECT * FROM products ORDER BY ProductID DESC LIMIT 1;";
+            string sql = "SELECT * FROM products WHERE Arhivirano=0 ORDER BY ProizvodID DESC LIMIT 1;";
             MySqlCommand command1 = new MySqlCommand(sql, DatabaseManager.Connection);
             MySqlDataReader reader = command1.ExecuteReader();
             try
             {
                 while (reader.Read())
                 {
-                    int id = reader.GetInt32("ProductID");
-                    int productNumber = reader.GetInt32("ProductNum");
-                    string name = reader.GetString("Name");
-                    double enterPrice = reader.GetDouble("EnterPrice");
-                    double sellPrice = reader.GetDouble("SellPrice");
-                    ProductUserControl userControl = new ProductUserControl(id, productNumber, name, enterPrice, sellPrice);
+                    int id = reader.GetInt32("ProizvodID");
+                    int productNumber = reader.GetInt32("BrojProizvoda");
+                    string name = reader.GetString("Naziv");
+                    double enterPrice = reader.GetDouble("UlaznaCijena");
+                    double sellPrice = reader.GetDouble("IzlaznaCijena");
+                    double tax = reader.GetDouble("Porez");
+                    ProductUserControl userControl = new ProductUserControl(id, productNumber, name, enterPrice, sellPrice, tax);
                     userControl.rbDobit = DobitLock;
                     userControl.rbIzlazna = IzlazLock;
                     userControl.rbProfit = ProfitLock;
@@ -171,33 +173,36 @@ namespace Gotal_manager
                     productUserControls.Add(userControl);
 
                 }
-            }catch(Exception ex) { 
+            }
+            catch (Exception ex)
+            {
             }
             reader.Close();
-            
+
         }
 
         private void NazivSearchTextBox_TextChanged(object sender, EventArgs e)
         {
             foreach (ProductUserControl puc in productUserControls)
             {
-                if ((puc.productNum +puc.naziv.ToLower()).Contains(NazivSearchTextBox.Text.ToLower()) || NazivSearchTextBox.Text == "")
-                    puc.Visible= true;
-                
+                if ((puc.productNum + puc.naziv.ToLower()).Contains(NazivSearchTextBox.Text.ToLower()) || NazivSearchTextBox.Text == "")
+                    puc.Visible = true;
+
                 else puc.Visible = false;
-                
+
             }
 
         }
 
         private void ProductsForm_SizeChanged(object sender, EventArgs e)
         {
-            MainFlowPanel.Size = new System.Drawing.Size(893, ActiveForm.Size.Height - 133);
+            MainFlowPanel.Size = new System.Drawing.Size(936, ActiveForm.Size.Height - 133);
         }
 
         private void spremiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveChanges();
         }
+
     }
 }

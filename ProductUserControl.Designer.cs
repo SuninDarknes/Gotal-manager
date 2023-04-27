@@ -35,6 +35,7 @@
             this.TextBoxProfit = new System.Windows.Forms.TextBox();
             this.RemoveButton = new System.Windows.Forms.Button();
             this.TextBoxProductNumber = new System.Windows.Forms.TextBox();
+            this.TextBoxPorez = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // TextBoxNaziv
@@ -81,7 +82,7 @@
             // RemoveButton
             // 
             this.RemoveButton.Image = global::Gotal_manager.Properties.Resources.cross;
-            this.RemoveButton.Location = new System.Drawing.Point(842, 3);
+            this.RemoveButton.Location = new System.Drawing.Point(885, 3);
             this.RemoveButton.Name = "RemoveButton";
             this.RemoveButton.Size = new System.Drawing.Size(23, 23);
             this.RemoveButton.TabIndex = 5;
@@ -96,11 +97,20 @@
             this.TextBoxProductNumber.TabIndex = 6;
             this.TextBoxProductNumber.TextChanged += new System.EventHandler(this.TextBoxProductNumber_TextChanged);
             // 
+            // TextBoxPorez
+            // 
+            this.TextBoxPorez.Location = new System.Drawing.Point(842, 4);
+            this.TextBoxPorez.Name = "TextBoxPorez";
+            this.TextBoxPorez.Size = new System.Drawing.Size(37, 23);
+            this.TextBoxPorez.TabIndex = 7;
+            this.TextBoxPorez.TextChanged += new System.EventHandler(this.TextBoxPorez_TextChanged);
+            // 
             // ProductUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.TextBoxPorez);
             this.Controls.Add(this.TextBoxProductNumber);
             this.Controls.Add(this.RemoveButton);
             this.Controls.Add(this.TextBoxProfit);
@@ -109,7 +119,7 @@
             this.Controls.Add(this.TextBoxUlazna);
             this.Controls.Add(this.TextBoxNaziv);
             this.Name = "ProductUserControl";
-            this.Size = new System.Drawing.Size(868, 29);
+            this.Size = new System.Drawing.Size(911, 29);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,5 +134,6 @@
         private TextBox TextBoxProfit;
         private Button RemoveButton;
         private TextBox TextBoxProductNumber;
+        private TextBox TextBoxPorez;
     }
 }

@@ -20,7 +20,8 @@ namespace Gotal_manager
 
         private void buttonStartSkladiste_Click(object sender, EventArgs e)
         {
-
+            StorageForm sf = new StorageForm();
+            sf.ShowDialog();
         }
     }
 }
