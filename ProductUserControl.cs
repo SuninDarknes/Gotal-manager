@@ -162,7 +162,7 @@ namespace Gotal_manager
                     {
                         command.Parameters.AddWithValue("@Id", id);
 
-                        int rowsAffected = command.ExecuteNonQuery();
+                        command.ExecuteNonQuery();
                     }
 
                     this.Dispose();
@@ -175,7 +175,7 @@ namespace Gotal_manager
                 {
                     command.Parameters.AddWithValue("@Id", id);
 
-                    int rowsAffected = command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
                 }
                 this.Dispose();
             }

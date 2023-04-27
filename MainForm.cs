@@ -23,5 +23,17 @@ namespace Gotal_manager
             StorageForm sf = new StorageForm();
             sf.ShowDialog();
         }
+
+        private void buttonStartDobavljaci_Click(object sender, EventArgs e)
+        {
+            DobavljaciForm df=new DobavljaciForm();
+            df.ShowDialog();
+        }
+
+        private void buttonStartKupci_Click(object sender, EventArgs e)
+        {
+            ClientForm cf = new ClientForm();
+            cf.ShowDialog();
+        }
     }
 }

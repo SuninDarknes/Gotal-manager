@@ -64,6 +64,7 @@
             this.buttonStartKupci.TabIndex = 2;
             this.buttonStartKupci.Text = "Kupci";
             this.buttonStartKupci.UseVisualStyleBackColor = true;
+            this.buttonStartKupci.Click += new System.EventHandler(this.buttonStartKupci_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -85,6 +86,7 @@
             this.buttonStartDobavljaci.TabIndex = 3;
             this.buttonStartDobavljaci.Text = "Dobavljači";
             this.buttonStartDobavljaci.UseVisualStyleBackColor = true;
+            this.buttonStartDobavljaci.Click += new System.EventHandler(this.buttonStartDobavljaci_Click);
             // 
             // MainForm
             // 

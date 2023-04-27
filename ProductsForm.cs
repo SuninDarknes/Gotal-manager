@@ -32,7 +32,7 @@ namespace Gotal_manager
             prikazujUpozorenjaToolStripMenuItem.Checked = Properties.Settings.Default.ProductsForm_ShowAlerts;
 
 
-            string sql = "SELECT * FROM products WHERE Arhivirano=0 ORDER BY BrojProizvoda ASC;";
+            string sql = "SELECT * FROM products ORDER BY BrojProizvoda ASC;";
             MySqlCommand command = new MySqlCommand(sql, DatabaseManager.Connection);
             MySqlDataReader reader = command.ExecuteReader();
 
@@ -92,7 +92,8 @@ namespace Gotal_manager
                 DialogResult result = MessageBox.Show("Spremi prije odlaska?", "Nespremljene Promjene", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    SaveChanges();
+                    if(!SaveChanges()) e.Cancel = true;
+
                 }
                 else if (result == DialogResult.Cancel)
                 {
@@ -101,27 +102,36 @@ namespace Gotal_manager
             }
         }
 
-        private void SaveChanges()
+        private bool SaveChanges()
         {
-            foreach (ProductUserControl puc in productUserControls)
+            try
             {
-                if (!puc.modified) continue;
-                string query = "UPDATE products SET BrojProizvoda = @BrojProizvoda, Naziv = @Naziv, UlaznaCijena = @UlaznaCijena, IzlaznaCijena = @IzlaznaCijena, Porez = @Porez WHERE ProizvodID = @id";
-
-                using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
+                foreach (ProductUserControl puc in productUserControls)
                 {
-                    command.Parameters.AddWithValue("@BrojProizvoda", puc.productNum);
-                    command.Parameters.AddWithValue("@Naziv", puc.naziv);
-                    command.Parameters.AddWithValue("@UlaznaCijena", puc.ulaz);
-                    command.Parameters.AddWithValue("@IzlaznaCijena", puc.izlaz);
-                    command.Parameters.AddWithValue("@Porez", puc.tax);
-                    command.Parameters.AddWithValue("@id", puc.id);
+                    if (!puc.modified) continue;
+                    string query = "UPDATE products SET BrojProizvoda = @BrojProizvoda, Naziv = @Naziv, UlaznaCijena = @UlaznaCijena, IzlaznaCijena = @IzlaznaCijena, Porez = @Porez WHERE ProizvodID = @id";
 
-                    int rowsAffected = command.ExecuteNonQuery();
-                    puc.afterSave();
+                    using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
+                    {
+                        command.Parameters.AddWithValue("@BrojProizvoda", puc.productNum);
+                        command.Parameters.AddWithValue("@Naziv", puc.naziv);
+                        command.Parameters.AddWithValue("@UlaznaCijena", puc.ulaz);
+                        command.Parameters.AddWithValue("@IzlaznaCijena", puc.izlaz);
+                        command.Parameters.AddWithValue("@Porez", puc.tax);
+                        command.Parameters.AddWithValue("@id", puc.id);
+
+                        command.ExecuteNonQuery();
+                        puc.afterSave();
+
+                    }
 
                 }
+                return true;
+            }
+            catch {
+                DialogResult result = MessageBox.Show("Greša pri spremanju! Provjeri valjanost svih zelenih redaka!", "Nespremljene Promjene", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                return false;
             }
         }
 
@@ -146,7 +156,7 @@ namespace Gotal_manager
                 command.Parameters.AddWithValue("@BrojProizvoda", productUserControls.Count);
                 command.Parameters.AddWithValue("@Naziv", "");
 
-                int rowsAffected = command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             }
 
 

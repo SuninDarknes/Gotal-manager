@@ -41,3 +41,8 @@ D:\Projects\gotal.hr\Gotal-manager\bin\Debug\net6.0-windows\Gotal_manager.dll.co
 D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.ProductsForm.resources
 D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.StorageForm.resources
 D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.StorageUserControl.resources
+D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.DobavljaciForm.resources
+D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.DobavljacUserControl.resources
+D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.PrimkaForm.resources
+D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.ClientForm.resources
+D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.ClientUserControl.resources

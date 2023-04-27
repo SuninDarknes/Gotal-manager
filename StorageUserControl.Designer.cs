@@ -38,7 +38,7 @@
             this.labelRazduzenoCijena = new System.Windows.Forms.Label();
             this.labelStanje = new System.Windows.Forms.Label();
             this.labelStanjeCijena = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonInfo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelID
@@ -131,14 +131,14 @@
             this.labelStanjeCijena.TabIndex = 10;
             this.labelStanjeCijena.Text = "Stanje(€)";
             // 
-            // button1
+            // buttonInfo
             // 
-            this.button1.Location = new System.Drawing.Point(1103, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(40, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Info.";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonInfo.Location = new System.Drawing.Point(1103, 3);
+            this.buttonInfo.Name = "buttonInfo";
+            this.buttonInfo.Size = new System.Drawing.Size(40, 23);
+            this.buttonInfo.TabIndex = 1;
+            this.buttonInfo.Text = "Info.";
+            this.buttonInfo.UseVisualStyleBackColor = true;
             // 
             // StorageUserControl
             // 
@@ -153,7 +153,7 @@
             this.Controls.Add(this.labelSveukupnoKomada);
             this.Controls.Add(this.labelNaziv);
             this.Controls.Add(this.labelBrojProizvoda);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonInfo);
             this.Controls.Add(this.labelID);
             this.Name = "StorageUserControl";
             this.Size = new System.Drawing.Size(1146, 29);
@@ -174,6 +174,6 @@
         private Label labelRazduzenoCijena;
         private Label labelStanje;
         private Label labelStanjeCijena;
-        private Button button1;
+        private Button buttonInfo;
     }
 }
