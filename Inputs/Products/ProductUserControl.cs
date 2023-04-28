@@ -16,11 +16,11 @@ namespace Gotal_manager
 {
     public partial class ProductUserControl : UserControl
     {
-        public int id { get; set; } 
-        public int productNum{ get; set; }
+        public int id { get; set; }
+        public int productNum { get; set; }
         public double ulaz { get; set; }
         double dobit;
-        public double izlaz{ get; set; }
+        public double izlaz { get; set; }
         double profit;
         public string naziv { get; set; }
         public double tax { get; set; }
@@ -32,7 +32,7 @@ namespace Gotal_manager
         public bool modified { get; set; }
 
 
-        public ProductUserControl(int _id=0,int _productNum=0, string _naziv = "", double _ulaz = 0, double _izlaz = 0,double _tax=0)
+        public ProductUserControl(int _id = 0, int _productNum = 0, string _naziv = "", double _ulaz = 0, double _izlaz = 0, double _tax = 0)
         {
             InitializeComponent();
             modified = false;
@@ -64,7 +64,7 @@ namespace Gotal_manager
         {
             try
             {
-                if (TextBoxProductNumber.Text==init_productNum.ToString() && TextBoxNaziv.Text == init_naziv && double.Parse(TextBoxUlazna.Text) == init_ulaz && double.Parse(TextBoxIzlazna.Text) == init_izlaz && init_tax == double.Parse(TextBoxPorez.Text))
+                if (TextBoxProductNumber.Text == init_productNum.ToString() && TextBoxNaziv.Text == init_naziv && double.Parse(TextBoxUlazna.Text) == init_ulaz && double.Parse(TextBoxIzlazna.Text) == init_izlaz && init_tax == double.Parse(TextBoxPorez.Text))
                 {
                     BackColor = SystemColors.Control;
                     modified = false;
@@ -90,10 +90,10 @@ namespace Gotal_manager
         public RadioButton rbProfit { set; get; }
         private void updateNums(TextBox sender = null)
         {
-            if (sender != TextBoxUlazna) TextBoxUlazna.Text = Math.Round(ulaz, 4).ToString();
-            if (sender != TextBoxIzlazna) TextBoxIzlazna.Text = Math.Round(izlaz, 4).ToString();
-            if (sender != TextBoxDobit) TextBoxDobit.Text = Math.Round(dobit * 100, 4).ToString();
-            if (sender != TextBoxProfit) TextBoxProfit.Text = Math.Round(profit, 4).ToString();
+            if (sender != TextBoxUlazna) TextBoxUlazna.Text = Math.Round(ulaz, 2).ToString();
+            if (sender != TextBoxIzlazna) TextBoxIzlazna.Text = Math.Round(izlaz, 2).ToString();
+            if (sender != TextBoxDobit) TextBoxDobit.Text = Math.Round(dobit * 100, 2).ToString();
+            if (sender != TextBoxProfit) TextBoxProfit.Text = Math.Round(profit, 2).ToString();
         }
 
         public void InitPrice()
@@ -101,7 +101,9 @@ namespace Gotal_manager
             try
             {
                 dobit = (izlaz - ulaz) / ulaz;
+                dobit = Math.Round(dobit, 2);
                 profit = izlaz - ulaz;
+                profit = Math.Round(profit, 2);
                 updateNums();
             }
             catch (Exception ex)
@@ -133,17 +135,23 @@ namespace Gotal_manager
             if (((RadioButton)ParentForm.Controls.Find("DobitLock", true)[0]).Checked)
             {
                 izlaz = ulaz * (dobit + 1);
+                izlaz = Math.Round(izlaz, 2);
                 profit = izlaz - ulaz;
+                profit = Math.Round(profit, 2);
             }
             if (((RadioButton)ParentForm.Controls.Find("IzlazLock", true)[0]).Checked)
             {
                 dobit = (izlaz - ulaz) / ulaz;
+                dobit = Math.Round(dobit, 2);
                 profit = izlaz - ulaz;
+                profit = Math.Round(profit, 2);
             }
             if (((RadioButton)ParentForm.Controls.Find("ProfitLock", true)[0]).Checked)
             {
                 dobit = (izlaz - ulaz) / ulaz;
+                dobit = Math.Round(dobit, 2);
                 izlaz = ulaz + profit;
+                izlaz = Math.Round(izlaz, 2);
 
             }
             updateNums(TextBoxUlazna);
@@ -198,6 +206,7 @@ namespace Gotal_manager
             try
             {
                 dobit = double.Parse(TextBoxDobit.Text) / 100;
+                dobit = Math.Round(dobit, 2);
             }
             catch (Exception ex)
             {
@@ -208,8 +217,9 @@ namespace Gotal_manager
             err.Text = "";
             if (!Properties.Settings.Default.ProductsForm_AutoCaclulate) return;
             izlaz = ulaz * (dobit + 1);
+            izlaz = Math.Round(izlaz, 2);
             profit = izlaz - ulaz;
-
+            profit = Math.Round(profit, 2);
             updateNums(TextBoxDobit);
 
         }
@@ -222,6 +232,7 @@ namespace Gotal_manager
             try
             {
                 izlaz = double.Parse(TextBoxIzlazna.Text);
+                izlaz = Math.Round(izlaz, 2);
             }
             catch (Exception ex)
             {
@@ -232,8 +243,9 @@ namespace Gotal_manager
             err.Text = "";
             if (!Properties.Settings.Default.ProductsForm_AutoCaclulate) return;
             dobit = (izlaz - ulaz) / ulaz;
+            dobit = Math.Round(dobit, 2);
             profit = izlaz - ulaz;
-
+            profit = Math.Round(profit, 2);
             updateNums(TextBoxIzlazna);
         }
 
@@ -244,7 +256,7 @@ namespace Gotal_manager
 
         private void TextBoxProductNumber_TextChanged(object sender, EventArgs e)
         {
-            productNum = int.Parse( TextBoxProductNumber.Text);
+            productNum = int.Parse(TextBoxProductNumber.Text);
         }
 
         private void TextBoxProfit_TextChanged(object sender, EventArgs e)
@@ -255,6 +267,7 @@ namespace Gotal_manager
             try
             {
                 profit = double.Parse(TextBoxProfit.Text);
+                profit = Math.Round(profit, 2);
             }
             catch (Exception ex)
             {
@@ -265,8 +278,9 @@ namespace Gotal_manager
             err.Text = "";
             if (!Properties.Settings.Default.ProductsForm_AutoCaclulate) return;
             izlaz = ulaz + profit;
+            izlaz = Math.Round(izlaz, 2);
             dobit = (izlaz - ulaz) / ulaz;
-
+            dobit = Math.Round(dobit, 2);
 
             updateNums(TextBoxProfit);
         }

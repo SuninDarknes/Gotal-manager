@@ -36,6 +36,16 @@
             this.postavkeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dopuniDobavljačaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SmallErrorLabel = new System.Windows.Forms.Label();
+            this.buttonUnesi = new System.Windows.Forms.Button();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.labelID = new System.Windows.Forms.Label();
+            this.labelIznos = new System.Windows.Forms.Label();
+            this.labelCijena = new System.Windows.Forms.Label();
+            this.labelBroj = new System.Windows.Forms.Label();
+            this.labelNaziv = new System.Windows.Forms.Label();
+            this.labelPopust = new System.Windows.Forms.Label();
+            this.labelPDV = new System.Windows.Forms.Label();
+            this.labelKolicna = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,9 +70,10 @@
             // 
             // MainFlowPanel
             // 
-            this.MainFlowPanel.Location = new System.Drawing.Point(116, 56);
+            this.MainFlowPanel.AutoScroll = true;
+            this.MainFlowPanel.Location = new System.Drawing.Point(116, 78);
             this.MainFlowPanel.Name = "MainFlowPanel";
-            this.MainFlowPanel.Size = new System.Drawing.Size(730, 302);
+            this.MainFlowPanel.Size = new System.Drawing.Size(730, 294);
             this.MainFlowPanel.TabIndex = 2;
             // 
             // buttonAddProduct
@@ -81,7 +92,7 @@
             this.postavkeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(949, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(859, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -103,17 +114,120 @@
             // SmallErrorLabel
             // 
             this.SmallErrorLabel.AutoSize = true;
+            this.SmallErrorLabel.ForeColor = System.Drawing.Color.Red;
             this.SmallErrorLabel.Location = new System.Drawing.Point(12, 433);
             this.SmallErrorLabel.Name = "SmallErrorLabel";
             this.SmallErrorLabel.Size = new System.Drawing.Size(61, 15);
             this.SmallErrorLabel.TabIndex = 5;
             this.SmallErrorLabel.Text = "Initializnig";
             // 
+            // buttonUnesi
+            // 
+            this.buttonUnesi.Location = new System.Drawing.Point(116, 407);
+            this.buttonUnesi.Name = "buttonUnesi";
+            this.buttonUnesi.Size = new System.Drawing.Size(75, 23);
+            this.buttonUnesi.TabIndex = 6;
+            this.buttonUnesi.Text = "Unesi";
+            this.buttonUnesi.UseVisualStyleBackColor = true;
+            this.buttonUnesi.Click += new System.EventHandler(this.buttonUnesi_Click);
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(116, 378);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(149, 23);
+            this.dateTimePicker1.TabIndex = 7;
+            this.dateTimePicker1.Value = new System.DateTime(2023, 4, 28, 0, 0, 0, 0);
+            // 
+            // labelID
+            // 
+            this.labelID.AutoSize = true;
+            this.labelID.Location = new System.Drawing.Point(124, 60);
+            this.labelID.Name = "labelID";
+            this.labelID.Size = new System.Drawing.Size(18, 15);
+            this.labelID.TabIndex = 16;
+            this.labelID.Text = "ID";
+            // 
+            // labelIznos
+            // 
+            this.labelIznos.AutoSize = true;
+            this.labelIznos.Location = new System.Drawing.Point(733, 60);
+            this.labelIznos.Name = "labelIznos";
+            this.labelIznos.Size = new System.Drawing.Size(34, 15);
+            this.labelIznos.TabIndex = 15;
+            this.labelIznos.Text = "Iznos";
+            // 
+            // labelCijena
+            // 
+            this.labelCijena.AutoSize = true;
+            this.labelCijena.Location = new System.Drawing.Point(474, 60);
+            this.labelCijena.Name = "labelCijena";
+            this.labelCijena.Size = new System.Drawing.Size(40, 15);
+            this.labelCijena.TabIndex = 12;
+            this.labelCijena.Text = "Cijena";
+            // 
+            // labelBroj
+            // 
+            this.labelBroj.AutoSize = true;
+            this.labelBroj.Location = new System.Drawing.Point(174, 60);
+            this.labelBroj.Name = "labelBroj";
+            this.labelBroj.Size = new System.Drawing.Size(28, 15);
+            this.labelBroj.TabIndex = 11;
+            this.labelBroj.Text = "Broj";
+            // 
+            // labelNaziv
+            // 
+            this.labelNaziv.AutoSize = true;
+            this.labelNaziv.Location = new System.Drawing.Point(224, 60);
+            this.labelNaziv.Name = "labelNaziv";
+            this.labelNaziv.Size = new System.Drawing.Size(36, 15);
+            this.labelNaziv.TabIndex = 10;
+            this.labelNaziv.Text = "Naziv";
+            // 
+            // labelPopust
+            // 
+            this.labelPopust.AutoSize = true;
+            this.labelPopust.Location = new System.Drawing.Point(559, 60);
+            this.labelPopust.Name = "labelPopust";
+            this.labelPopust.Size = new System.Drawing.Size(62, 15);
+            this.labelPopust.TabIndex = 17;
+            this.labelPopust.Text = "Popust(%)";
+            // 
+            // labelPDV
+            // 
+            this.labelPDV.AutoSize = true;
+            this.labelPDV.Location = new System.Drawing.Point(621, 60);
+            this.labelPDV.Name = "labelPDV";
+            this.labelPDV.Size = new System.Drawing.Size(47, 15);
+            this.labelPDV.TabIndex = 18;
+            this.labelPDV.Text = "PDV(%)";
+            // 
+            // labelKolicna
+            // 
+            this.labelKolicna.AutoSize = true;
+            this.labelKolicna.Location = new System.Drawing.Point(677, 60);
+            this.labelKolicna.Name = "labelKolicna";
+            this.labelKolicna.Size = new System.Drawing.Size(46, 15);
+            this.labelKolicna.TabIndex = 19;
+            this.labelKolicna.Text = "Količna";
+            // 
             // PrimkaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(949, 457);
+            this.ClientSize = new System.Drawing.Size(859, 457);
+            this.Controls.Add(this.labelKolicna);
+            this.Controls.Add(this.labelPDV);
+            this.Controls.Add(this.labelPopust);
+            this.Controls.Add(this.labelID);
+            this.Controls.Add(this.labelIznos);
+            this.Controls.Add(this.labelCijena);
+            this.Controls.Add(this.labelBroj);
+            this.Controls.Add(this.labelNaziv);
+            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.buttonUnesi);
             this.Controls.Add(this.SmallErrorLabel);
             this.Controls.Add(this.buttonAddProduct);
             this.Controls.Add(this.MainFlowPanel);
@@ -124,6 +238,7 @@
             this.Name = "PrimkaForm";
             this.Text = "PrimkaForm";
             this.Load += new System.EventHandler(this.PrimkaForm_Load);
+            this.SizeChanged += new System.EventHandler(this.PrimkaForm_SizeChanged);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -141,5 +256,15 @@
         private ToolStripMenuItem postavkeToolStripMenuItem;
         private ToolStripMenuItem dopuniDobavljačaToolStripMenuItem;
         public Label SmallErrorLabel;
+        private Button buttonUnesi;
+        private DateTimePicker dateTimePicker1;
+        private Label labelID;
+        private Label labelIznos;
+        private Label labelCijena;
+        private Label labelBroj;
+        private Label labelNaziv;
+        private Label labelPopust;
+        private Label labelPDV;
+        private Label labelKolicna;
     }
 }

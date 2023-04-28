@@ -51,7 +51,7 @@
             // labelNaziv
             // 
             this.labelNaziv.AutoSize = true;
-            this.labelNaziv.Location = new System.Drawing.Point(103, 6);
+            this.labelNaziv.Location = new System.Drawing.Point(103, 7);
             this.labelNaziv.Name = "labelNaziv";
             this.labelNaziv.Size = new System.Drawing.Size(36, 15);
             this.labelNaziv.TabIndex = 1;
@@ -60,7 +60,7 @@
             // labelBroj
             // 
             this.labelBroj.AutoSize = true;
-            this.labelBroj.Location = new System.Drawing.Point(53, 6);
+            this.labelBroj.Location = new System.Drawing.Point(53, 7);
             this.labelBroj.Name = "labelBroj";
             this.labelBroj.Size = new System.Drawing.Size(28, 15);
             this.labelBroj.TabIndex = 2;
@@ -69,7 +69,7 @@
             // labelCijena
             // 
             this.labelCijena.AutoSize = true;
-            this.labelCijena.Location = new System.Drawing.Point(353, 6);
+            this.labelCijena.Location = new System.Drawing.Point(353, 7);
             this.labelCijena.Name = "labelCijena";
             this.labelCijena.Size = new System.Drawing.Size(40, 15);
             this.labelCijena.TabIndex = 3;
@@ -101,6 +101,7 @@
             this.RemoveButton.Size = new System.Drawing.Size(23, 23);
             this.RemoveButton.TabIndex = 6;
             this.RemoveButton.UseVisualStyleBackColor = false;
+            this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
             // 
             // labelIznos
             // 

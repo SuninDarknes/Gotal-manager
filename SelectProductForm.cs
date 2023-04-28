@@ -39,5 +39,22 @@ namespace Gotal_manager
             reader.Close();
 
         }
+
+        private void SelectProductForm_SizeChanged(object sender, EventArgs e)
+        {
+            flowLayoutPanel1.Size = new System.Drawing.Size(541, Form.ActiveForm.Size.Height - 86);
+        }
+
+
+        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        {
+            foreach (SelectProductUserControl spuc in flowLayoutPanel1.Controls)
+            {
+                if (spuc.naziv.ToLower().Contains(textBoxSearch.Text.ToLower()) || textBoxSearch.Text == "")
+                    spuc.Visible = true;
+                else spuc.Visible = false;
+
+            }
+        }
     }
 }

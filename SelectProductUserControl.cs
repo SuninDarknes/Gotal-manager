@@ -13,6 +13,8 @@ namespace Gotal_manager
     public partial class SelectProductUserControl : UserControl
     {
         int id;
+        public string? naziv { get; set; }
+        
         public SelectProductUserControl()
         {
             InitializeComponent();
@@ -21,6 +23,7 @@ namespace Gotal_manager
         {
             InitializeComponent();
             this.id = id;
+            this.naziv= naziv;
             labelBroj.Text= broj.ToString();
             labelNaziv.Text = naziv;
             labelCijena.Text = cijena.ToString();
