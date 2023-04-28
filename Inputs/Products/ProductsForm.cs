@@ -32,7 +32,7 @@ namespace Gotal_manager
             prikazujUpozorenjaToolStripMenuItem.Checked = Properties.Settings.Default.ProductsForm_ShowAlerts;
 
 
-            string sql = "SELECT * FROM products ORDER BY BrojProizvoda ASC;";
+            string sql = "SELECT * FROM products WHERE Arhivirano=0 ORDER BY BrojProizvoda ASC;";
             MySqlCommand command = new MySqlCommand(sql, DatabaseManager.Connection);
             MySqlDataReader reader = command.ExecuteReader();
 
@@ -139,12 +139,14 @@ namespace Gotal_manager
         {
             Properties.Settings.Default.ProductsForm_AutoCaclulate = !automatskoRačunanjeToolStripMenuItem.Checked;
             automatskoRačunanjeToolStripMenuItem.Checked = !automatskoRačunanjeToolStripMenuItem.Checked;
+            Properties.Settings.Default.Save();
         }
 
         private void prikazujUpozorenjaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.ProductsForm_ShowAlerts = !prikazujUpozorenjaToolStripMenuItem.Checked;
             prikazujUpozorenjaToolStripMenuItem.Checked = !prikazujUpozorenjaToolStripMenuItem.Checked;
+            Properties.Settings.Default.Save();
         }
 
         private void AddRowButton_Click(object sender, EventArgs e)

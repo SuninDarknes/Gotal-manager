@@ -25,7 +25,7 @@ namespace Gotal_manager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool ProductsForm_AutoCaclulate {
             get {
                 return ((bool)(this["ProductsForm_AutoCaclulate"]));
@@ -44,6 +44,18 @@ namespace Gotal_manager.Properties {
             }
             set {
                 this["ProductsForm_ShowAlerts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PrimkaForm_DobavljacAuto {
+            get {
+                return ((bool)(this["PrimkaForm_DobavljacAuto"]));
+            }
+            set {
+                this["PrimkaForm_DobavljacAuto"] = value;
             }
         }
     }

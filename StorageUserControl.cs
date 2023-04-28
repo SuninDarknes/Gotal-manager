@@ -23,7 +23,8 @@ namespace Gotal_manager
         {
             InitializeComponent();
 
-            string query = "SELECT * FROM products WHERE ProizvodID = @id";
+            //Uzima cijenu... od produkta
+            string query = "SELECT * FROM products AND ProizvodID = @id";
             using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
             {
                 command.Parameters.AddWithValue("@id", _id);
