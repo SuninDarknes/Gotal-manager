@@ -32,7 +32,8 @@ namespace Gotal_manager.Displays
             public double popust;
             public double porez;
             public int kolicina;
-            public string? datum;
+            public double cijena;
+            public string datum="";
             public PrimkaData(int primkaID, double popust, double porez, int kolicina)
             {
                 this.primkaID = primkaID;
@@ -45,6 +46,7 @@ namespace Gotal_manager.Displays
 
         private void PrimkeProductHistoryForm_Load(object sender, EventArgs e)
         {
+            
             List<PrimkaData> primkas = new List<PrimkaData>();
             string query = "SELECT * FROM `primke-stavke` WHERE ProizvodID = @ProizvodID";
             using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
@@ -53,13 +55,13 @@ namespace Gotal_manager.Displays
 
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    if (reader.Read())
+                    while (reader.Read())
                     {
                         primkas.Add(new PrimkaData(
                             reader.GetInt32("PrimkaID"),
                             reader.GetDouble("Popust"),
                             reader.GetDouble("Porez"),
-                            reader.GetInt32("BrojProizvoda")
+                            reader.GetInt32("Kolicina")
                             ));
                     }
                     reader.Close();
@@ -71,12 +73,12 @@ namespace Gotal_manager.Displays
                 using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
                 {
                     command.Parameters.AddWithValue("@PrimkaID", pd.primkaID);
-
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
                             pd.dobavljacID = reader.GetInt32("DobavljacID");
+                            pd.datum = reader.GetDateTime("Datum").ToString("dd-MM-yyyy");
 
                         }
                         reader.Close();
@@ -85,23 +87,44 @@ namespace Gotal_manager.Displays
             }
             foreach (PrimkaData pd in primkas)
             {
-                query = "SELECT * FROM primke WHERE PrimkaID = @PrimkaID";
+                query = "SELECT * FROM products WHERE ProizvodID = @ProizvodID";
                 using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
                 {
-                    command.Parameters.AddWithValue("@PrimkaID", pd.primkaID);
+                    command.Parameters.AddWithValue("@ProizvodID", ProductID);
 
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        
+                        if (reader.Read())
+                        {
+                            pd.cijena = reader.GetDouble("UlaznaCijena");
+                            
+                        }
+                        reader.Close();
+                    }
+                }
+            }
+            foreach (PrimkaData pd in primkas)
+            {
+                query = "SELECT * FROM deliverer WHERE DobavljacID = @DobavljacID";
+                using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
+                {
+                    command.Parameters.AddWithValue("@DobavljacID", pd.dobavljacID);
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-
+                            
+                            //cita se ime dobavljaca
+                            PrimkeProductHistoryUserControl control = new PrimkeProductHistoryUserControl(pd.primkaID, reader.GetString("Naziv"), pd.popust, pd.porez, pd.kolicina, pd.cijena, pd.datum);
+                            flowLayoutPanel1.Controls.Add(control);
                         }
                         reader.Close();
                     }
                 }
             }
 
-            //PrimkeProductHistoryUserControl control = new PrimkeProductHistoryUserControl(pd.primkaID, );
+            
 
         }
     }

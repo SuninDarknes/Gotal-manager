@@ -51,7 +51,7 @@ namespace Gotal_manager
                         labelRazduzeno.Text = _razduzenaKolicina.ToString();
                         labelRazduzenoCijena.Text=(_razduzenaKolicina*cijena).ToString()+ "€";
                         labelStanje.Text= (_sveukupnaKolicina-_razduzenaKolicina).ToString();
-                        labelStanjeCijena.Text = ((_sveukupnaKolicina - _razduzenaKolicina) * cijena).ToString() + "€";
+                        labelStanjeCijena.Text = (Math.Round((_sveukupnaKolicina - _razduzenaKolicina) * cijena),2).ToString() + "€";
                     }
                     reader.Close();
                 }
@@ -60,7 +60,7 @@ namespace Gotal_manager
 
         private void buttonInfo_Click(object sender, EventArgs e)
         {
-            PrimkeProductHistoryForm primkeProductHistoryFormform = new PrimkeProductHistoryForm();
+            PrimkeProductHistoryForm primkeProductHistoryFormform = new PrimkeProductHistoryForm(id);
             primkeProductHistoryFormform.ShowDialog();
 
 

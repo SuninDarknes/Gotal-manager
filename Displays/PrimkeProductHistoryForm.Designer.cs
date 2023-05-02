@@ -41,9 +41,10 @@
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 27);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(644, 243);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(644, 395);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // labelDobavljac
@@ -60,27 +61,27 @@
             this.labelDatum.AutoSize = true;
             this.labelDatum.Location = new System.Drawing.Point(562, 9);
             this.labelDatum.Name = "labelDatum";
-            this.labelDatum.Size = new System.Drawing.Size(68, 15);
+            this.labelDatum.Size = new System.Drawing.Size(43, 15);
             this.labelDatum.TabIndex = 14;
-            this.labelDatum.Text = "labelDatum";
+            this.labelDatum.Text = "Datum";
             // 
             // labelUkupnaCijena
             // 
             this.labelUkupnaCijena.AutoSize = true;
             this.labelUkupnaCijena.Location = new System.Drawing.Point(462, 9);
             this.labelUkupnaCijena.Name = "labelUkupnaCijena";
-            this.labelUkupnaCijena.Size = new System.Drawing.Size(81, 15);
+            this.labelUkupnaCijena.Size = new System.Drawing.Size(84, 15);
             this.labelUkupnaCijena.TabIndex = 13;
-            this.labelUkupnaCijena.Text = "UkupnaCijena";
+            this.labelUkupnaCijena.Text = "Ukupna Cijena";
             // 
             // labelCijena
             // 
             this.labelCijena.AutoSize = true;
             this.labelCijena.Location = new System.Drawing.Point(362, 9);
             this.labelCijena.Name = "labelCijena";
-            this.labelCijena.Size = new System.Drawing.Size(40, 15);
+            this.labelCijena.Size = new System.Drawing.Size(86, 15);
             this.labelCijena.TabIndex = 12;
-            this.labelCijena.Text = "Cijena";
+            this.labelCijena.Text = "Cijena komada";
             // 
             // labelKolicina
             // 
@@ -122,7 +123,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(662, 435);
             this.Controls.Add(this.labelDobavljac);
             this.Controls.Add(this.labelDatum);
             this.Controls.Add(this.labelUkupnaCijena);

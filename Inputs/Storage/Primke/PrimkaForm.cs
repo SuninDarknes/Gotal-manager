@@ -197,13 +197,14 @@ namespace Gotal_manager
 
             foreach (StorageProductControlUserControl control in productUserControls)
             {
-                string query1 = "INSERT INTO `primke-stavke` (RedniBroj, PrimkaID, ProizvodID, Popust, Porez, Kolicina) VALUES (@RedniBroj,@PrimkaID, @ProizvodID, @Popust, @Porez, @Kolicina)";
+                string query1 = "INSERT INTO `primke-stavke` (RedniBroj, PrimkaID, ProizvodID, Cijena, Popust, Porez, Kolicina) VALUES (@RedniBroj,@PrimkaID, @ProizvodID, @Cijena, @Popust, @Porez, @Kolicina)";
 
                 using (MySqlCommand command = new MySqlCommand(query1, DatabaseManager.Connection))
                 {
                     command.Parameters.AddWithValue("@RedniBroj", control.id);
                     command.Parameters.AddWithValue("@PrimkaID", PrimkaID);
                     command.Parameters.AddWithValue("@ProizvodID", control.proizvodID);
+                    command.Parameters.AddWithValue("@Cijena", control.cijena);
                     command.Parameters.AddWithValue("@Popust", control.popust * 100);
                     command.Parameters.AddWithValue("@Porez", control.porez * 100);
                     command.Parameters.AddWithValue("@Kolicina", control.kolicina);
@@ -211,41 +212,6 @@ namespace Gotal_manager
                 }
             }
 
-            foreach (StorageProductControlUserControl control in productUserControls)
-            {
-                int kolicinaNaSkladistu = -1;
-
-                query = "SELECT * FROM storage WHERE ProizvodID=@ProizvodID";
-                using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
-                {
-                    command.Parameters.AddWithValue("@ProizvodID", control.proizvodID);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            kolicinaNaSkladistu = reader.GetInt32("SveukupnaKolicina");
-                        }
-                    }
-                }
-
-                if (kolicinaNaSkladistu == -1)
-                {
-                    query = "INSERT INTO storage (ProizvodID, Popust, SveukupnaKolicina) VALUES (@ProizvodID, @Popust, @SveukupnaKolicina)";
-                    kolicinaNaSkladistu = 0;
-                }
-
-                else
-                    query = "UPDATE storage SET SveukupnaKolicina = @SveukupnaKolicina, Popust = @Popust WHERE ProizvodID = @ProizvodID";
-
-                using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
-                {
-                    command.Parameters.AddWithValue("@ProizvodID", control.proizvodID);
-                    command.Parameters.AddWithValue("@Popust", control.popust * 100);
-                    command.Parameters.AddWithValue("@SveukupnaKolicina", kolicinaNaSkladistu+control.kolicina);
-                    command.ExecuteNonQuery();
-                }
-            }
             MessageBox.Show("Uspješno dodana primka!", "Obavijest", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Form.ActiveForm.Close();
         }

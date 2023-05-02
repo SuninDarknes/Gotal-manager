@@ -31,12 +31,12 @@
             this.textBoxPopust = new System.Windows.Forms.TextBox();
             this.labelNaziv = new System.Windows.Forms.Label();
             this.labelBroj = new System.Windows.Forms.Label();
-            this.labelCijena = new System.Windows.Forms.Label();
             this.textBoxPDV = new System.Windows.Forms.TextBox();
             this.textBoxKolicina = new System.Windows.Forms.TextBox();
             this.RemoveButton = new System.Windows.Forms.Button();
             this.labelIznos = new System.Windows.Forms.Label();
             this.labelID = new System.Windows.Forms.Label();
+            this.textBoxCijena = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBoxPopust
@@ -65,15 +65,6 @@
             this.labelBroj.Size = new System.Drawing.Size(28, 15);
             this.labelBroj.TabIndex = 2;
             this.labelBroj.Text = "Broj";
-            // 
-            // labelCijena
-            // 
-            this.labelCijena.AutoSize = true;
-            this.labelCijena.Location = new System.Drawing.Point(353, 7);
-            this.labelCijena.Name = "labelCijena";
-            this.labelCijena.Size = new System.Drawing.Size(40, 15);
-            this.labelCijena.TabIndex = 3;
-            this.labelCijena.Text = "Cijena";
             // 
             // textBoxPDV
             // 
@@ -121,16 +112,24 @@
             this.labelID.TabIndex = 8;
             this.labelID.Text = "ID";
             // 
+            // textBoxCijena
+            // 
+            this.textBoxCijena.Location = new System.Drawing.Point(353, 3);
+            this.textBoxCijena.Name = "textBoxCijena";
+            this.textBoxCijena.Size = new System.Drawing.Size(85, 23);
+            this.textBoxCijena.TabIndex = 9;
+            this.textBoxCijena.TextChanged += new System.EventHandler(this.textBoxCijena_TextChanged);
+            // 
             // StorageProductControlUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.textBoxCijena);
             this.Controls.Add(this.labelID);
             this.Controls.Add(this.labelIznos);
             this.Controls.Add(this.RemoveButton);
             this.Controls.Add(this.textBoxKolicina);
             this.Controls.Add(this.textBoxPDV);
-            this.Controls.Add(this.labelCijena);
             this.Controls.Add(this.labelBroj);
             this.Controls.Add(this.labelNaziv);
             this.Controls.Add(this.textBoxPopust);
@@ -146,11 +145,11 @@
         private TextBox textBoxPopust;
         private Label labelNaziv;
         private Label labelBroj;
-        private Label labelCijena;
         private TextBox textBoxPDV;
         private TextBox textBoxKolicina;
         private Button RemoveButton;
         private Label labelIznos;
         private Label labelID;
+        private TextBox textBoxCijena;
     }
 }

@@ -25,10 +25,7 @@ namespace Gotal_manager.Displays
             labelPorez.Text = porez.ToString();
             labelKolicina.Text = kolicina.ToString();
             labelCijena.Text = cijena.ToString();
-            double cijena_s_popustom = cijena - (cijena * popust);
-            double porez_na_cijenu = cijena_s_popustom * (porez / (1 - porez));
-            double cijena_s_porezom = (cijena_s_popustom + porez_na_cijenu) * kolicina;
-            labelUkupnaCijena.Text = Math.Round(cijena_s_porezom, 2).ToString();
+            labelUkupnaCijena.Text = Racunaj.izlaznaCijenaIzUlazne(cijena, popust, porez, kolicina).ToString();
             labelDatum.Text = datum;
         }
     }

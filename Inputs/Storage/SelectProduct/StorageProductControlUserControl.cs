@@ -23,7 +23,7 @@ namespace Gotal_manager
 
         int broj;
         public string? naziv { get; set; }
-        double cijena;
+        public double cijena { get; set; }
 
 
         public StorageProductControlUserControl()
@@ -45,7 +45,7 @@ namespace Gotal_manager
             labelID.Text = id.ToString();
             labelBroj.Text = broj.ToString();
             labelNaziv.Text = naziv;
-            labelCijena.Text = cijena.ToString();
+            textBoxCijena.Text = cijena.ToString();
             textBoxPDV.Text = (porez * 100).ToString();
 
             updateUkupniIznos();
@@ -115,10 +115,7 @@ namespace Gotal_manager
         }
         void updateUkupniIznos()
         {
-            double cijena_s_popustom = cijena - (cijena * popust);
-            double porez_na_cijenu = cijena_s_popustom * (porez / (1 - porez));
-            double cijena_s_porezom = (cijena_s_popustom + porez_na_cijenu) * kolicina;
-            sveukupnaCijena = Math.Round(cijena_s_porezom, 2);
+            sveukupnaCijena = Racunaj.izlaznaCijenaIzUlazne(cijena,popust,porez,kolicina);
             labelIznos.Text = sveukupnaCijena.ToString();
         }
         public void updateIDTo(int id)
@@ -134,6 +131,12 @@ namespace Gotal_manager
             {
                 primkaForm.removeUserControlByID(id);
             }
+        }
+
+        private void textBoxCijena_TextChanged(object sender, EventArgs e)
+        {
+            cijena = Double.Parse(textBoxCijena.Text);
+            updateUkupniIznos();
         }
     }
 }
