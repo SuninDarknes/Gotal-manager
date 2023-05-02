@@ -14,17 +14,26 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
+using Gotal_manager.Displays;
 
 namespace Gotal_manager
 {
     public partial class StorageUserControl : UserControl
     {
-        public StorageUserControl(int _id = 0, int _sveukupnaKolicina = 0, int _razduzenaKolicina = 0, double _popust = 0)
+        int id;
+        public StorageUserControl()
+        {
+            InitializeComponent();
+        }
+            public StorageUserControl(int _id , int _sveukupnaKolicina , int _razduzenaKolicina , double _popust)
         {
             InitializeComponent();
 
+            this.id = _id;
+
             //Uzima cijenu... od produkta
-            string query = "SELECT * FROM products AND ProizvodID = @id";
+            string query = "SELECT * FROM products WHERE ProizvodID = @id";
             using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
             {
                 command.Parameters.AddWithValue("@id", _id);
@@ -44,15 +53,17 @@ namespace Gotal_manager
                         labelStanje.Text= (_sveukupnaKolicina-_razduzenaKolicina).ToString();
                         labelStanjeCijena.Text = ((_sveukupnaKolicina - _razduzenaKolicina) * cijena).ToString() + "€";
                     }
+                    reader.Close();
                 }
             }
         }
 
+        private void buttonInfo_Click(object sender, EventArgs e)
+        {
+            PrimkeProductHistoryForm primkeProductHistoryFormform = new PrimkeProductHistoryForm();
+            primkeProductHistoryFormform.ShowDialog();
 
 
-
-
-        
-
+        }
     }
 }

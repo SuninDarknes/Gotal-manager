@@ -20,50 +20,69 @@ namespace Gotal_manager
             InitializeComponent();
         }
 
+        class StorageData
+        {
+            public int id, sveukupnaKolicina, razduzenaKolicina;
+            public double popust;
+            public StorageData(int id, int sveukupnaKolicina, int razduzenaKolicina, double popust)
+            {
+                this.id = id;
+                this.sveukupnaKolicina = sveukupnaKolicina;
+                this.razduzenaKolicina = razduzenaKolicina;
+                this.popust = popust;
+            }
+
+
+
+        };
+
 
         private void StorageForm_Load(object sender, EventArgs e)
         {
+            refreshData();
+        }
 
-            string sql = "SELECT * FROM products WHERE Arhivirano=0 ORDER BY BrojProizvoda ASC;";
+        private void refreshData()
+        {
+            MainFlowPanel.Controls.Clear();
+            storageUsers.Clear();
+
+
+            string sql = "SELECT * FROM storage;";
             MySqlCommand command = new MySqlCommand(sql, DatabaseManager.Connection);
             MySqlDataReader reader = command.ExecuteReader();
-            try
+
+
+
+            List<StorageData> storageData = new List<StorageData>();
+            while (reader.Read())
             {
-                while (reader.Read())
-                {
 
-                    int id = reader.GetInt32("ProizvodID");
-                    int sveukupnaKolicina = reader.GetInt32("SveukupnaKolicina");
+                int id = reader.GetInt32("ProizvodID");
+                int sveukupnaKolicina = reader.GetInt32("SveukupnaKolicina");
 
-                    int razduzenaKolicina = reader.GetInt32("RazduzenaKolicina");
-                    double popust = reader.GetDouble("Popust");
 
-                    StorageUserControl userControl = new StorageUserControl(id, sveukupnaKolicina, razduzenaKolicina, popust);
-
-                    MainFlowPanel.Controls.Add(userControl);
-                    storageUsers.Add(userControl);
-
-                }
+                int razduzenaKolicina = reader.GetInt32("RazduzenaKolicina");
+                double popust = reader.GetDouble("Popust");
+                storageData.Add(new StorageData(id, sveukupnaKolicina, razduzenaKolicina, popust));
             }
-            catch (Exception)
+            reader.Close();
+            foreach (StorageData sd in storageData)
             {
-                reader.Close();
-                return;
+                StorageUserControl userControl = new StorageUserControl(sd.id, sd.sveukupnaKolicina, sd.razduzenaKolicina, sd.popust);
+
+                MainFlowPanel.Controls.Add(userControl);
+                storageUsers.Add(userControl);
             }
-
-
-
-
-
-
-
-            SmallErrorLabel.Text = "";
         }
+
+
 
         private void buttonPrimka_Click(object sender, EventArgs e)
         {
             PrimkaForm ps = new PrimkaForm();
             ps.ShowDialog();
+            refreshData();
         }
     }
 }

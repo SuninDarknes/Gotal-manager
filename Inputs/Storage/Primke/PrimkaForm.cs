@@ -229,16 +229,20 @@ namespace Gotal_manager
                     }
                 }
 
-                if(kolicinaNaSkladistu==-1)
-                    query = "INSERT INTO storage (ProizvodID, Popust, Porez, Kolicina) VALUES (@RedniBroj,@PrimkaID, @ProizvodID, @Popust, @Porez, @Kolicina)";
+                if (kolicinaNaSkladistu == -1)
+                {
+                    query = "INSERT INTO storage (ProizvodID, Popust, SveukupnaKolicina) VALUES (@ProizvodID, @Popust, @SveukupnaKolicina)";
+                    kolicinaNaSkladistu = 0;
+                }
+
                 else
-                    query = "UPDATE storage SET Naziv = @Naziv, Adresa = @Adresa, Telefon = @Telefon, `E-mail` = @Email, VAT = @VAT WHERE ClientID = @id";
+                    query = "UPDATE storage SET SveukupnaKolicina = @SveukupnaKolicina, Popust = @Popust WHERE ProizvodID = @ProizvodID";
+
                 using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
                 {
                     command.Parameters.AddWithValue("@ProizvodID", control.proizvodID);
                     command.Parameters.AddWithValue("@Popust", control.popust * 100);
-                    command.Parameters.AddWithValue("@Porez", control.porez * 100);
-                    command.Parameters.AddWithValue("@Kolicina", control.kolicina);
+                    command.Parameters.AddWithValue("@SveukupnaKolicina", kolicinaNaSkladistu+control.kolicina);
                     command.ExecuteNonQuery();
                 }
             }

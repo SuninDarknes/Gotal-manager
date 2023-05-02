@@ -139,6 +139,7 @@
             this.buttonInfo.TabIndex = 1;
             this.buttonInfo.Text = "Info.";
             this.buttonInfo.UseVisualStyleBackColor = true;
+            this.buttonInfo.Click += new System.EventHandler(this.buttonInfo_Click);
             // 
             // StorageUserControl
             // 

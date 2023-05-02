@@ -49,3 +49,5 @@ D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.Client
 D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.SelectProductForm.resources
 D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.SelectProductUserControl.resources
 D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.StorageProductControlUserControl.resources
+D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.Displays.PrimkeProductHistoryForm.resources
+D:\Projects\gotal.hr\Gotal-manager\obj\Debug\net6.0-windows\Gotal_manager.Displays.PrimkeProductHistoryUserControl.resources
