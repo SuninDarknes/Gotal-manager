@@ -58,5 +58,17 @@ namespace Gotal_manager.Properties {
                 this["PrimkaForm_DobavljacAuto"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IzdatnicaForm_KupacAuto {
+            get {
+                return ((bool)(this["IzdatnicaForm_KupacAuto"]));
+            }
+            set {
+                this["IzdatnicaForm_KupacAuto"] = value;
+            }
+        }
     }
 }

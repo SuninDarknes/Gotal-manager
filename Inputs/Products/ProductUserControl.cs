@@ -165,7 +165,7 @@ namespace Gotal_manager
                 DialogResult result = MessageBox.Show("Jesi li siguran da želiš obrisati ovaj redak?", "Brisanje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    string query = "UPDATE products SET Arhivirano=1 WHERE ProizvodID = @Id ";
+                    string query = "UPDATE proizvodi SET Arhivirano=1 WHERE ProizvodID = @Id ";
                     using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
                     {
                         command.Parameters.AddWithValue("@Id", id);
@@ -178,7 +178,7 @@ namespace Gotal_manager
             }
             else
             {
-                string query = "UPDATE products SET Arhivirano=1 WHERE ProizvodID = @Id";
+                string query = "UPDATE proizvodi SET Arhivirano=1 WHERE ProizvodID = @Id";
                 using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);

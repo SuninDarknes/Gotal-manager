@@ -123,7 +123,7 @@
             this.Controls.Add(this.labelPopust);
             this.Controls.Add(this.labelPrimkaID);
             this.Name = "PrimkeProductHistoryUserControl";
-            this.Size = new System.Drawing.Size(721, 29);
+            this.Size = new System.Drawing.Size(650, 29);
             this.ResumeLayout(false);
             this.PerformLayout();
 

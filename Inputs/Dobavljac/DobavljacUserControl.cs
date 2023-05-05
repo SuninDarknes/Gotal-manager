@@ -115,7 +115,7 @@ namespace Gotal_manager
             DialogResult result = MessageBox.Show("Jesi li siguran da želiš obrisati ovog dobavljača?", "Brisanje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
             {
-                string query = "UPDATE deliverer SET Arhivirano=1 WHERE DobavljacID = @Id ";
+                string query = "UPDATE dobavljaci SET Arhivirano=1 WHERE DobavljacID = @Id ";
                 using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);

@@ -21,11 +21,11 @@ namespace Gotal_manager.Displays
             InitializeComponent();
             labelPrimkaID.Text = PrimkaID.ToString();
             labelDobavljac.Text = dobavljac;
-            labelPopust.Text = popust.ToString();
-            labelPorez.Text = porez.ToString();
+            labelPopust.Text = popust + "%";
+            labelPorez.Text = porez + "%";
             labelKolicina.Text = kolicina.ToString();
-            labelCijena.Text = cijena.ToString();
-            labelUkupnaCijena.Text = Racunaj.izlaznaCijenaIzUlazne(cijena, popust, porez, kolicina).ToString();
+            labelCijena.Text = cijena+ " €";
+            labelUkupnaCijena.Text = Racunaj.izlaznaCijenaIzUlazne(cijena, popust, porez, kolicina) + " €";
             labelDatum.Text = datum;
         }
     }

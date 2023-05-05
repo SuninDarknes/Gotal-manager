@@ -20,7 +20,7 @@ namespace Gotal_manager
 
 
 
-            string sql = "SELECT * FROM deliverer WHERE Arhivirano=0 ORDER BY DobavljacID ASC;";
+            string sql = "SELECT * FROM dobavljaci WHERE Arhivirano=0 ORDER BY DobavljacID ASC;";
             MySqlCommand command = new MySqlCommand(sql, DatabaseManager.Connection);
             MySqlDataReader reader = command.ExecuteReader();
 
@@ -56,7 +56,7 @@ namespace Gotal_manager
                 foreach (DobavljacUserControl puc in dobavljacUserControls)
                 {
                     if (!puc.modified) continue;
-                string query = "UPDATE deliverer SET Naziv = @Naziv, Adresa = @Adresa, Telefon = @Telefon, `E-mail` = @Email, VAT = @VAT WHERE DobavljacID = @id";
+                string query = "UPDATE dobavljaci SET Naziv = @Naziv, Adresa = @Adresa, Telefon = @Telefon, `E-mail` = @Email, VAT = @VAT WHERE DobavljacID = @id";
 
 
                 using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
@@ -87,7 +87,7 @@ namespace Gotal_manager
 
         private void dodajToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string query = "INSERT INTO deliverer (Naziv) VALUES (@Naziv)";
+            string query = "INSERT INTO dobavljaci (Naziv) VALUES (@Naziv)";
 
             using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
             {
@@ -98,7 +98,7 @@ namespace Gotal_manager
 
 
 
-            string sql = "SELECT * FROM deliverer WHERE Arhivirano=0 ORDER BY DobavljacID DESC LIMIT 1;";
+            string sql = "SELECT * FROM dobavljaci WHERE Arhivirano=0 ORDER BY DobavljacID DESC LIMIT 1;";
             MySqlCommand command1 = new MySqlCommand(sql, DatabaseManager.Connection);
             MySqlDataReader reader = command1.ExecuteReader();
             try

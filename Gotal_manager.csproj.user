@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Compile Update="Displays\PrimkeProductHistoryForm.cs">
+    <Compile Update="Displays\PrimkeHistory\PrimkeProductHistoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Displays\PrimkeProductHistoryUserControl.cs">
+    <Compile Update="Displays\PrimkeHistory\PrimkeProductHistoryUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Inputs\Client\ClientForm.cs">
@@ -18,6 +18,12 @@
     </Compile>
     <Compile Update="Inputs\Dobavljac\DobavljacUserControl.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Inputs\Storage\Izdatnice\IzdatnicaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Inputs\Storage\SelectStorageProizvod\SelectStorageProizvodForm.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
@@ -37,13 +43,13 @@
     <Compile Update="SelectProductUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="StorageForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Inputs\Storage\SelectProduct\StorageProductControlUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="StorageUserControl.cs">
+    <Compile Update="Displays\Storage\StorageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Displays\Storage\StorageUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

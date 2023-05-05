@@ -13,11 +13,12 @@ namespace Gotal_manager
     public partial class SelectProductUserControl : UserControl
     {
         int id;
-        public string? naziv { get; set; }
-        
+        public string naziv { get; set; }
+
         public SelectProductUserControl()
         {
             InitializeComponent();
+            naziv = "";
         }
         public SelectProductUserControl(int id, int broj, string naziv, double cijena)
         {

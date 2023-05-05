@@ -20,13 +20,13 @@ namespace Gotal_manager
 
 
 
-            string sql = "SELECT * FROM clients WHERE Arhivirano=0 ORDER BY ClientID ASC;";
+            string sql = "SELECT * FROM kupci WHERE Arhivirano=0 ORDER BY KupacID ASC;";
             MySqlCommand command = new MySqlCommand(sql, DatabaseManager.Connection);
             MySqlDataReader reader = command.ExecuteReader();
 
             while (reader.Read())
             {
-                int id = reader.GetInt32("ClientID");
+                int id = reader.GetInt32("KupacID");
                 string naziv = reader.GetString("Naziv");
                 string adresa = reader.GetString("Adresa");
                 string telefon = reader.GetString("Telefon");
@@ -56,7 +56,7 @@ namespace Gotal_manager
             foreach (ClientUserControl puc in clientUserControls)
             {
                 if (!puc.modified) continue;
-                string query = "UPDATE clients SET Naziv = @Naziv, Adresa = @Adresa, Telefon = @Telefon, `E-mail` = @Email, VAT = @VAT WHERE ClientID = @id";
+                string query = "UPDATE kupci SET Naziv = @Naziv, Adresa = @Adresa, Telefon = @Telefon, `E-mail` = @Email, VAT = @VAT WHERE KupacID = @id";
 
 
                 using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
@@ -87,7 +87,7 @@ namespace Gotal_manager
 
         private void dodajToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string query = "INSERT INTO clients (Naziv) VALUES (@Naziv)";
+            string query = "INSERT INTO kupci (Naziv) VALUES (@Naziv)";
 
             using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
             {
@@ -98,14 +98,14 @@ namespace Gotal_manager
 
 
 
-            string sql = "SELECT * FROM clients WHERE Arhivirano=0 ORDER BY ClientID DESC LIMIT 1;";
+            string sql = "SELECT * FROM kupci WHERE Arhivirano=0 ORDER BY KupacID DESC LIMIT 1;";
             MySqlCommand command1 = new MySqlCommand(sql, DatabaseManager.Connection);
             MySqlDataReader reader = command1.ExecuteReader();
             try
             {
                 while (reader.Read())
                 {
-                    int id = reader.GetInt32("ClientID");
+                    int id = reader.GetInt32("KupacID");
                     string naziv = reader.GetString("Naziv");
                     string adresa = reader.GetString("Adresa");
                     string telefon = reader.GetString("Telefon");

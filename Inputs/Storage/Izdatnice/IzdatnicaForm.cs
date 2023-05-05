@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Gotal_manager.Inputs.Storage.SelectStorageProizvod;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,103 +7,41 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace Gotal_manager
+namespace Gotal_manager.Inputs.Storage.Izdatnice
 {
-    public partial class PrimkaForm : Form
+    public partial class IzdatnicaForm : Form
     {
         List<string> autoWords = new List<string>();
         List<int> autoWordsIDs = new List<int>();
         List<StorageProductControlUserControl> productUserControls = new List<StorageProductControlUserControl>();
-        public PrimkaForm()
+
+        Dictionary<StorageData, int> storageDatas;
+
+        public IzdatnicaForm()
         {
             InitializeComponent();
         }
-
-        private void PrimkaForm_Load(object sender, EventArgs e)
+        public IzdatnicaForm(Dictionary<StorageData, int> storageDatas)
         {
-            dopuniDobavljačaToolStripMenuItem.Checked = Properties.Settings.Default.PrimkaForm_DobavljacAuto;
-
-            try
-            {
-                string sql = "SELECT * FROM dobavljaci WHERE Arhivirano=0 ORDER BY DobavljacID ASC;";
-                MySqlCommand command = new MySqlCommand(sql, DatabaseManager.Connection);
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    autoWordsIDs.Add(reader.GetInt32("DobavljacID"));
-                    autoWords.Add(reader.GetString("Naziv"));
-
-                }
-                reader.Close();
-
-                AutoCompleteStringCollection acs = new AutoCompleteStringCollection();
-                acs.AddRange(autoWords.ToArray());
-                textBoxDobavljac.AutoCompleteCustomSource = acs;
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Greška kod učitavanja dobavljača", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            SmallErrorLabel.Text = "";
+            InitializeComponent();
+            this.storageDatas = storageDatas;
         }
 
-        private void textBoxDobavljac_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (Properties.Settings.Default.PrimkaForm_DobavljacAuto)
-            {
-                if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar) && (e.KeyChar != ' '))
-                {
-                    e.Handled = true;
-                    return;
-                }
-                string currentText = textBoxDobavljac.Text;
 
-                if (!char.IsControl(e.KeyChar))
-                {
-                    currentText += e.KeyChar;
-                }
-
-                bool foundMatch = false;
-                foreach (string value in autoWords)
-                {
-                    if (value.StartsWith(currentText, StringComparison.OrdinalIgnoreCase))
-                    {
-                        foundMatch = true;
-                        break;
-                    }
-                }
-
-                if (!foundMatch)
-                {
-                    e.Handled = true;
-                }
-            }
-        }
-
-        private void dopuniDobavljačaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.PrimkaForm_DobavljacAuto = !Properties.Settings.Default.PrimkaForm_DobavljacAuto;
-            dopuniDobavljačaToolStripMenuItem.Checked = Properties.Settings.Default.PrimkaForm_DobavljacAuto;
-            Properties.Settings.Default.Save();
-        }
 
         private void buttonAddProduct_Click(object sender, EventArgs e)
         {
             int ProductID = 0;
 
-            using (SelectProductForm selectProductForm = new SelectProductForm())
+            using (SelectStorageProizvodForm selectProizvodForm = new SelectStorageProizvodForm())
             {
-                DialogResult result = selectProductForm.ShowDialog();
+                DialogResult result = selectProizvodForm.ShowDialog();
 
-                ProductID = selectProductForm.selected_product_id;
+                ProductID = selectProizvodForm.selected_product_index;
 
             }
             try
@@ -149,60 +88,60 @@ namespace Gotal_manager
 
         private void buttonUnesi_Click(object sender, EventArgs e)
         {
-            int dobavljacID = -1;
+            int clientID = -1;
             try
             {
-                string queryind = "SELECT * FROM dobavljaci WHERE LOWER(Naziv)=LOWER(@Naziv)";
+                string queryind = "SELECT * FROM kupci WHERE LOWER(Naziv)=LOWER(@Naziv)";
                 using (MySqlCommand command = new MySqlCommand(queryind, DatabaseManager.Connection))
                 {
-                    command.Parameters.AddWithValue("@Naziv", textBoxDobavljac.Text);
+                    command.Parameters.AddWithValue("@Naziv", textBoxKupac.Text);
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            dobavljacID = reader.GetInt32("DobavljacID");
+                            clientID = reader.GetInt32("KupacID");
                         }
                     }
                 }
-                if (dobavljacID == -1) throw new Exception();
+                if (clientID == -1) throw new Exception();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Provijeri ime dobavljača!", "Krivo ime dobavljača", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Provijeri ime kupca!", "Krivo ime kupca", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            string query = "INSERT INTO primke (DobavljacID, Datum) VALUES (@DobavljacID, @Datum)";
+            string query = "INSERT INTO izdatnice (KupacID, Datum) VALUES (@KupacID, @Datum)";
 
             using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
             {
-                command.Parameters.AddWithValue("@DobavljacID", dobavljacID);
+                command.Parameters.AddWithValue("@KupacID", clientID);
                 DateTime date = DateTime.ParseExact(dateTimePicker1.Text, "dd/MM/yyyy", DateTimeFormatInfo.InvariantInfo);
                 command.Parameters.AddWithValue("@Datum", date.ToString("yyyy-MM-dd HH:mm:ss"));
                 command.ExecuteNonQuery();
             }
-            int PrimkaID = -1;
-            query = "SELECT * FROM primke ORDER BY PrimkaID DESC LIMIT 1";
+            int IzdatnicaID = -1;
+            query = "SELECT * FROM primke ORDER BY IzdatnicaID DESC LIMIT 1";
             using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
             {
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        PrimkaID = reader.GetInt32("PrimkaID");
+                        IzdatnicaID = reader.GetInt32("IzdatnicaID");
                     }
                 }
             }
 
             foreach (StorageProductControlUserControl control in productUserControls)
             {
-                string query1 = "INSERT INTO `primke-stavke` (RedniBroj, PrimkaID, ProizvodID, Cijena, Popust, Porez, Kolicina) VALUES (@RedniBroj,@PrimkaID, @ProizvodID, @Cijena, @Popust, @Porez, @Kolicina)";
+                string query1 = "INSERT INTO `primke-stavke` (RedniBroj, IzdatnicaID, ProizvodID, Cijena, Popust, Porez, Kolicina) VALUES (@RedniBroj,@IzdatnicaID, @ProizvodID, @Cijena, @Popust, @Porez, @Kolicina)";
 
                 using (MySqlCommand command = new MySqlCommand(query1, DatabaseManager.Connection))
                 {
                     command.Parameters.AddWithValue("@RedniBroj", control.id);
-                    command.Parameters.AddWithValue("@PrimkaID", PrimkaID);
+                    command.Parameters.AddWithValue("@IzdatnicaID", IzdatnicaID);
                     command.Parameters.AddWithValue("@ProizvodID", control.proizvodID);
                     command.Parameters.AddWithValue("@Cijena", control.cijena);
                     command.Parameters.AddWithValue("@Popust", control.popust * 100);
@@ -212,13 +151,85 @@ namespace Gotal_manager
                 }
             }
 
-            MessageBox.Show("Uspješno dodana primka!", "Obavijest", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Uspješno dodana izdatnica!", "Obavijest", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Form.ActiveForm.Close();
         }
 
-        private void PrimkaForm_SizeChanged(object sender, EventArgs e)
+
+        private void dopuniKupcaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.IzdatnicaForm_KupacAuto = !Properties.Settings.Default.IzdatnicaForm_KupacAuto;
+            dopuniKupcaToolStripMenuItem.Checked = Properties.Settings.Default.IzdatnicaForm_KupacAuto;
+            Properties.Settings.Default.Save();
+        }
+
+        private void textBoxKupac_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Properties.Settings.Default.IzdatnicaForm_KupacAuto)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar) && (e.KeyChar != ' '))
+                {
+                    e.Handled = true;
+                    return;
+                }
+                string currentText = textBoxKupac.Text;
+
+                if (!char.IsControl(e.KeyChar))
+                {
+                    currentText += e.KeyChar;
+                }
+
+                bool foundMatch = false;
+                foreach (string value in autoWords)
+                {
+                    if (value.StartsWith(currentText, StringComparison.OrdinalIgnoreCase))
+                    {
+                        foundMatch = true;
+                        break;
+                    }
+                }
+
+                if (!foundMatch)
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void IzdatnicaForm_SizeChanged(object sender, EventArgs e)
         {
             MainFlowPanel.Size = new Size(730, Form.ActiveForm.Size.Height - 202);
+        }
+
+        private void IzdatnicaForm_Load(object sender, EventArgs e)
+        {
+            dopuniKupcaToolStripMenuItem.Checked = Properties.Settings.Default.IzdatnicaForm_KupacAuto;
+
+            dateTimePicker1.Value = DateTime.Now;
+            try
+            {
+                string sql = "SELECT * FROM kupci WHERE Arhivirano=0 ORDER BY KupacID ASC;";
+                MySqlCommand command = new MySqlCommand(sql, DatabaseManager.Connection);
+                MySqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    autoWordsIDs.Add(reader.GetInt32("KupacID"));
+                    autoWords.Add(reader.GetString("Naziv"));
+
+                }
+                reader.Close();
+
+                AutoCompleteStringCollection acs = new AutoCompleteStringCollection();
+                acs.AddRange(autoWords.ToArray());
+                textBoxKupac.AutoCompleteCustomSource = acs;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Greška kod učitavanja kupca", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            SmallErrorLabel.Text = "";
         }
     }
 }

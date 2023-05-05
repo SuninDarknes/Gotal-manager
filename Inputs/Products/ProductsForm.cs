@@ -32,7 +32,7 @@ namespace Gotal_manager
             prikazujUpozorenjaToolStripMenuItem.Checked = Properties.Settings.Default.ProductsForm_ShowAlerts;
 
 
-            string sql = "SELECT * FROM products WHERE Arhivirano=0 ORDER BY BrojProizvoda ASC;";
+            string sql = "SELECT * FROM proizvodi WHERE Arhivirano=0 ORDER BY BrojProizvoda ASC;";
             MySqlCommand command = new MySqlCommand(sql, DatabaseManager.Connection);
             MySqlDataReader reader = command.ExecuteReader();
 
@@ -109,7 +109,7 @@ namespace Gotal_manager
                 foreach (ProductUserControl puc in productUserControls)
                 {
                     if (!puc.modified) continue;
-                    string query = "UPDATE products SET BrojProizvoda = @BrojProizvoda, Naziv = @Naziv, UlaznaCijena = @UlaznaCijena, IzlaznaCijena = @IzlaznaCijena, Porez = @Porez WHERE ProizvodID = @id";
+                    string query = "UPDATE proizvodi SET BrojProizvoda = @BrojProizvoda, Naziv = @Naziv, UlaznaCijena = @UlaznaCijena, IzlaznaCijena = @IzlaznaCijena, Porez = @Porez WHERE ProizvodID = @id";
 
                     using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
                     {
@@ -151,7 +151,7 @@ namespace Gotal_manager
 
         private void AddRowButton_Click(object sender, EventArgs e)
         {
-            string query = "INSERT INTO products (BrojProizvoda,Naziv) VALUES (@BrojProizvoda, @Naziv)";
+            string query = "INSERT INTO proizvodi (BrojProizvoda,Naziv) VALUES (@BrojProizvoda, @Naziv)";
 
             using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
             {
@@ -163,7 +163,7 @@ namespace Gotal_manager
 
 
 
-            string sql = "SELECT * FROM products WHERE Arhivirano=0 ORDER BY ProizvodID DESC LIMIT 1;";
+            string sql = "SELECT * FROM proizvodi WHERE Arhivirano=0 ORDER BY ProizvodID DESC LIMIT 1;";
             MySqlCommand command1 = new MySqlCommand(sql, DatabaseManager.Connection);
             MySqlDataReader reader = command1.ExecuteReader();
             try

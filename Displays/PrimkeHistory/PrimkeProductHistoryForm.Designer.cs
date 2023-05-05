@@ -44,7 +44,7 @@
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 27);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(644, 395);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(675, 395);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // labelDobavljac
@@ -123,7 +123,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(662, 435);
+            this.ClientSize = new System.Drawing.Size(694, 435);
             this.Controls.Add(this.labelDobavljac);
             this.Controls.Add(this.labelDatum);
             this.Controls.Add(this.labelUkupnaCijena);
@@ -136,6 +136,7 @@
             this.Name = "PrimkeProductHistoryForm";
             this.Text = "PrimkeProductHistoryForm";
             this.Load += new System.EventHandler(this.PrimkeProductHistoryForm_Load);
+            this.SizeChanged += new System.EventHandler(this.PrimkeProductHistoryForm_SizeChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 

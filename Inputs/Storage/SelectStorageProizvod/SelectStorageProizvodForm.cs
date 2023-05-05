@@ -9,20 +9,38 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Gotal_manager
+namespace Gotal_manager.Inputs.Storage.SelectStorageProizvod
 {
-    public partial class SelectProductForm : Form
+    public partial class SelectStorageProizvodForm : Form
     {
 
-        public int selected_product_id { get; set; }
-        public SelectProductForm()
+
+        public int selected_product_index { get; set; }
+        public SelectStorageProizvodForm()
         {
             InitializeComponent();
         }
 
-        private void SelectProductForm_Load(object sender, EventArgs e)
+        private void SelectProductForm_SizeChanged(object sender, EventArgs e)
         {
-            string sql = "SELECT * FROM proizvodi WHERE Arhivirano=0 ORDER BY BrojProizvoda ASC;";
+            
+        }
+
+
+        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        {
+            foreach (SelectProductUserControl spuc in flowLayoutPanel1.Controls)
+            {
+                if (spuc.naziv.ToLower().Contains(textBoxSearch.Text.ToLower()) || textBoxSearch.Text == "")
+                    spuc.Visible = true;
+                else spuc.Visible = false;
+
+            }
+        }
+
+        private void SelectStorageProizvodForm_Load(object sender, EventArgs e)
+        {
+            string sql = "SELECT * FROM primke-stavke WHERE Arhivirano=0 ORDER BY BrojProizvoda ASC;";
             MySqlCommand command = new MySqlCommand(sql, DatabaseManager.Connection);
             MySqlDataReader reader = command.ExecuteReader();
 
@@ -40,21 +58,10 @@ namespace Gotal_manager
 
         }
 
-        private void SelectProductForm_SizeChanged(object sender, EventArgs e)
+        private void SelectStorageProizvodForm_SizeChanged(object sender, EventArgs e)
         {
-            flowLayoutPanel1.Size = new System.Drawing.Size(541, Form.ActiveForm.Size.Height - 86);
-        }
-
-
-        private void textBoxSearch_TextChanged(object sender, EventArgs e)
-        {
-            foreach (SelectProductUserControl spuc in flowLayoutPanel1.Controls)
-            {
-                if (spuc.naziv.ToLower().Contains(textBoxSearch.Text.ToLower()) || textBoxSearch.Text == "")
-                    spuc.Visible = true;
-                else spuc.Visible = false;
-
-            }
+            flowLayoutPanel1.Size = new System.Drawing.Size(541, Size.Height - 86);
         }
     }
+
 }
