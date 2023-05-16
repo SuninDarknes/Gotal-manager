@@ -9,7 +9,7 @@ namespace Gotal_manager
 {
     internal class DatabaseManager
     {
-        private static string connectionString = "server=localhost;database=gotal-manager;uid=root;password=root1119;";
+        private static string connectionString = "server=localhost;database=storage-manager;uid=root;password=root;";
         private static MySqlConnection? connection;
 
 

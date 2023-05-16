@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,10 +16,16 @@ namespace Gotal_manager.Inputs.Storage.SelectStorageProizvod
     {
 
 
-        public int selected_product_index { get; set; }
+        public int selected_control_id { get; set; }
+        Dictionary<StorageData, int>? storageDatas;
         public SelectStorageProizvodForm()
         {
             InitializeComponent();
+        }
+        public SelectStorageProizvodForm(Dictionary<StorageData, int> storageDatas)
+        {
+            InitializeComponent();
+            this.storageDatas = storageDatas;
         }
 
         private void SelectProductForm_SizeChanged(object sender, EventArgs e)
@@ -40,21 +47,16 @@ namespace Gotal_manager.Inputs.Storage.SelectStorageProizvod
 
         private void SelectStorageProizvodForm_Load(object sender, EventArgs e)
         {
-            string sql = "SELECT * FROM primke-stavke WHERE Arhivirano=0 ORDER BY BrojProizvoda ASC;";
-            MySqlCommand command = new MySqlCommand(sql, DatabaseManager.Connection);
-            MySqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
+            if (storageDatas == null) return;
+            foreach(KeyValuePair<StorageData, int> entry in storageDatas)
             {
-                int id = reader.GetInt32("ProizvodID");
-                int productNumber = reader.GetInt32("BrojProizvoda");
-                string name = reader.GetString("Naziv");
-                double enterPrice = reader.GetDouble("UlaznaCijena");
-                double tax = reader.GetDouble("Porez");
+                int id = entry.Key.ID;
+                int productNumber = entry.Key.ID;
+                string name = entry.Key.naziv;
+                double enterPrice = entry.Key.cijena;
                 SelectProductUserControl userControl = new SelectProductUserControl(id, productNumber, name, enterPrice);
                 flowLayoutPanel1.Controls.Add(userControl);
             }
-            reader.Close();
 
         }
 

@@ -9,11 +9,15 @@ namespace Gotal_manager
     public class StorageData
     {
         //Samo prva ove vrste
-        public int ID;
+        public int ID, brojProizvoda;
+
         public int proizvodID;
         public double cijena, popust, porez;
         public int kolicina, razduzena_kolicina;
         public string naziv="GREŠKA";
+
+        public double prodajnaCijena, prodajniPopust, zarada;
+
         public StorageData(int proizvodID,int ID, double cijena, double popust, double porez, int kolicina)
         {
             this.proizvodID = proizvodID;
@@ -23,7 +27,6 @@ namespace Gotal_manager
             this.porez = porez;
             this.kolicina = kolicina;
         }
-        public double calc() { return Racunaj.izlaznaCijenaIzUlazne(cijena, popust, porez, kolicina); }
 
         public override int GetHashCode()
         {

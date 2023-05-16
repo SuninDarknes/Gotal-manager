@@ -35,42 +35,28 @@ namespace Gotal_manager.Inputs.Storage.Izdatnice
 
         private void buttonAddProduct_Click(object sender, EventArgs e)
         {
-            int ProductID = 0;
-
-            using (SelectStorageProizvodForm selectProizvodForm = new SelectStorageProizvodForm())
+            int storageProductIDSelected;
+            StorageData Product = null;
+            using (SelectStorageProizvodForm selectProizvodForm = new SelectStorageProizvodForm(storageDatas))
             {
                 DialogResult result = selectProizvodForm.ShowDialog();
-
-                ProductID = selectProizvodForm.selected_product_index;
-
+                storageProductIDSelected = selectProizvodForm.selected_control_id;
             }
-            try
+            foreach(KeyValuePair<StorageData,int> entry in storageDatas)
             {
-                string query = "SELECT * FROM proizvodi WHERE ProizvodID = @id";
-                using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
-                {
-                    command.Parameters.AddWithValue("@id", ProductID);
+                if (entry.Key.ID == storageProductIDSelected)
+                    Product = entry.Key;
+            }
+            if(Product == null){
+                MessageBox.Show("Error: krivi storageProductIDSelected");
+                return;
+            }
+            StorageProductControlUserControl userControl = new StorageProductControlUserControl
+                (productUserControls.Count, Product);
+            MainFlowPanel.Controls.Add(userControl);
+            productUserControls.Add(userControl);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            int broj = reader.GetInt32("BrojProizvoda");
-                            string naziv = reader.GetString("Naziv");
-                            double cijena = reader.GetDouble("UlaznaCijena");
-                            double porez = reader.GetDouble("Porez") / 100;
-                            StorageProductControlUserControl userControl =
-                                new StorageProductControlUserControl(productUserControls.Count, ProductID, broj, naziv, cijena, porez);
-                            MainFlowPanel.Controls.Add(userControl);
-                            productUserControls.Add(userControl);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Greška kod učitavanja proizvoda", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
 
 
         }
@@ -88,6 +74,12 @@ namespace Gotal_manager.Inputs.Storage.Izdatnice
 
         private void buttonUnesi_Click(object sender, EventArgs e)
         {
+            if (SmallErrorLabel.Text != "")
+            {
+                MessageBox.Show("Ispravi greške!", "Obavijest", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            
             int clientID = -1;
             try
             {
@@ -122,7 +114,7 @@ namespace Gotal_manager.Inputs.Storage.Izdatnice
                 command.ExecuteNonQuery();
             }
             int IzdatnicaID = -1;
-            query = "SELECT * FROM primke ORDER BY IzdatnicaID DESC LIMIT 1";
+            query = "SELECT * FROM izdatnice ORDER BY IzdatnicaID DESC LIMIT 1";
             using (MySqlCommand command = new MySqlCommand(query, DatabaseManager.Connection))
             {
                 using (MySqlDataReader reader = command.ExecuteReader())
@@ -136,17 +128,20 @@ namespace Gotal_manager.Inputs.Storage.Izdatnice
 
             foreach (StorageProductControlUserControl control in productUserControls)
             {
-                string query1 = "INSERT INTO `primke-stavke` (RedniBroj, IzdatnicaID, ProizvodID, Cijena, Popust, Porez, Kolicina) VALUES (@RedniBroj,@IzdatnicaID, @ProizvodID, @Cijena, @Popust, @Porez, @Kolicina)";
+                string query1 = "INSERT INTO `izdatnice-stavke` (RedniBroj, IzdatnicaID, ProizvodID, Cijena, Popust, Porez, Kolicina, ProdajnaCijena, ProdajniPopust, ProdajniPorez) VALUES (@RedniBroj,@IzdatnicaID, @ProizvodID, @Cijena, @Popust, @Porez, @Kolicina, @ProdajnaCijena, @ProdajniPopust, @ProdajniPorez)";
 
                 using (MySqlCommand command = new MySqlCommand(query1, DatabaseManager.Connection))
                 {
                     command.Parameters.AddWithValue("@RedniBroj", control.id);
                     command.Parameters.AddWithValue("@IzdatnicaID", IzdatnicaID);
-                    command.Parameters.AddWithValue("@ProizvodID", control.proizvodID);
-                    command.Parameters.AddWithValue("@Cijena", control.cijena);
-                    command.Parameters.AddWithValue("@Popust", control.popust * 100);
-                    command.Parameters.AddWithValue("@Porez", control.porez * 100);
+                    command.Parameters.AddWithValue("@ProizvodID", control.storageData.proizvodID);
+                    command.Parameters.AddWithValue("@Cijena", control.storageData.cijena);
+                    command.Parameters.AddWithValue("@Popust", control.storageData.popust * 100);
+                    command.Parameters.AddWithValue("@Porez", control.storageData.porez*100);
                     command.Parameters.AddWithValue("@Kolicina", control.kolicina);
+                    command.Parameters.AddWithValue("@ProdajnaCijena", control.cijena);
+                    command.Parameters.AddWithValue("@ProdajniPopust", control.popust * 100);
+                    command.Parameters.AddWithValue("@ProdajniPorez", control.porez * 100);
                     command.ExecuteNonQuery();
                 }
             }

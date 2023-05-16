@@ -78,7 +78,7 @@
             this.Controls.Add(this.labelCijena);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "SelectStorageProizvodForm";
-            this.Text = "SelectProductForm";
+            this.Text = "SelectStorageProizvodForm";
             this.Load += new System.EventHandler(this.SelectStorageProizvodForm_Load);
             this.SizeChanged += new System.EventHandler(this.SelectStorageProizvodForm_SizeChanged);
             this.ResumeLayout(false);

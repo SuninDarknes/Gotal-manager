@@ -155,18 +155,18 @@
             this.labelIznos.AutoSize = true;
             this.labelIznos.Location = new System.Drawing.Point(733, 60);
             this.labelIznos.Name = "labelIznos";
-            this.labelIznos.Size = new System.Drawing.Size(34, 15);
+            this.labelIznos.Size = new System.Drawing.Size(81, 15);
             this.labelIznos.TabIndex = 15;
-            this.labelIznos.Text = "Iznos";
+            this.labelIznos.Text = "Prodajni Iznos";
             // 
             // labelCijena
             // 
             this.labelCijena.AutoSize = true;
             this.labelCijena.Location = new System.Drawing.Point(474, 60);
             this.labelCijena.Name = "labelCijena";
-            this.labelCijena.Size = new System.Drawing.Size(40, 15);
+            this.labelCijena.Size = new System.Drawing.Size(90, 15);
             this.labelCijena.TabIndex = 12;
-            this.labelCijena.Text = "Cijena";
+            this.labelCijena.Text = "Prodajna Cijena";
             // 
             // labelBroj
             // 

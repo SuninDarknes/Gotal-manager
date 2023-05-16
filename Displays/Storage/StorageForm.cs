@@ -53,9 +53,42 @@ namespace Gotal_manager
                     storageDatas[sd] += sd.kolicina;
                 else storageDatas[sd] = sd.kolicina;
 
+            sql = "SELECT * FROM `izdatnice-stavke`;";
+            command = new MySqlCommand(sql, DatabaseManager.Connection);
+            reader = command.ExecuteReader();
+            List<StorageData> izdatnice = new List<StorageData>();
+            while (reader.Read())
+            {
+                izdatnice.Add(new StorageData(reader.GetInt32("ProizvodID"), reader.GetInt32("ID"), reader.GetDouble("Cijena"), reader.GetDouble("Popust"), reader.GetDouble("Porez"), reader.GetInt32("Kolicina")));
+                izdatnice[izdatnice.Count - 1].kolicina = reader.GetInt32("Kolicina");
+                izdatnice[izdatnice.Count - 1].prodajnaCijena = reader.GetInt32("ProdajnaCijena");
+                izdatnice[izdatnice.Count - 1].prodajniPopust = reader.GetInt32("ProdajniPopust");
+            }
+            reader.Close();
+
+            Dictionary<StorageData, double[]> storageSold = new Dictionary<StorageData, double[]>();
+            foreach (StorageData sd in izdatnice)
+                if (storageSold.ContainsKey(sd))
+                {
+                    storageSold[sd][0] += sd.kolicina;
+                    storageSold[sd][1] += (sd.prodajnaCijena - sd.prodajnaCijena * sd.prodajniPopust) * sd.kolicina;
+                }
+                else
+                {
+                    storageSold[sd] = new double[] { sd.kolicina, (sd.prodajnaCijena - sd.prodajnaCijena * sd.prodajniPopust) * sd.kolicina };
+                }
+
+
 
             foreach (KeyValuePair<StorageData, int> entry in storageDatas)
             {
+                entry.Key.kolicina = entry.Value;
+                if (storageSold.ContainsKey(entry.Key))
+                {
+                    entry.Key.razduzena_kolicina = (int)storageSold[entry.Key][0];
+                    entry.Key.zarada = storageSold[entry.Key][1];
+                }
+
                 StorageUserControl userControl = new StorageUserControl(entry.Key, entry.Value);
 
                 MainFlowPanel.Controls.Add(userControl);
@@ -82,7 +115,7 @@ namespace Gotal_manager
         {
             foreach (StorageUserControl suc in MainFlowPanel.Controls)
             {
-                
+
                 if (suc.storageData.naziv.ToLower().Contains(textBoxSearch.Text.ToLower()) || textBoxSearch.Text == "")
                     suc.Visible = true;
                 else suc.Visible = false;

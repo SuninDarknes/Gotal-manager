@@ -42,17 +42,21 @@ namespace Gotal_manager
                 {
                     if (reader.Read())
                     {
-                        labelID.Text=storageData.ID.ToString();
-                        labelBrojProizvoda.Text = reader.GetInt32("BrojProizvoda").ToString();
+
                         storageData.naziv = reader.GetString("Naziv");
+                        storageData.brojProizvoda = reader.GetInt32("BrojProizvoda");
+                        storageData.prodajnaCijena = reader.GetInt32("IzlaznaCijena");
+
+                        labelID.Text=storageData.ID.ToString();
+                        labelBrojProizvoda.Text = storageData.brojProizvoda.ToString();
                         labelNaziv.Text = storageData.naziv;
                         labelSveukupnoKomada.Text = _sveukupnaKolicina+" kom.";
-                        labelPopust.Text = storageData.popust + "%";
-                        labelPorez.Text = storageData.porez + "%";
-                        labelCijena.Text = storageData.cijena + " €";
-                        labelSveukupnoCijena.Text = (_sveukupnaKolicina * storageData.cijena) + " €";
+                        labelPopust.Text =Math.Round( storageData.popust, 2) + "%";
+                        labelPorez.Text = Math.Round(storageData.porez, 2) + "%";
+                        labelCijena.Text = Math.Round(storageData.cijena, 2) + " €";
+                        labelSveukupnoCijena.Text = Math.Round(_sveukupnaKolicina * storageData.cijena,2) + " €";
                         labelRazduzeno.Text = storageData.razduzena_kolicina+" kom.";
-                        labelRazduzenoCijena.Text = (storageData.razduzena_kolicina * storageData.cijena) + " €";
+                        labelRazduzenoCijena.Text = Math.Round(storageData.zarada ,2) + " €";
                         labelStanje.Text = (_sveukupnaKolicina - storageData.razduzena_kolicina)+" kom.";
                         labelStanjeCijena.Text = Math.Round((_sveukupnaKolicina - storageData.razduzena_kolicina) * storageData.cijena, 2) + " €";
                     }

@@ -102,7 +102,7 @@ namespace Gotal_manager
             {
                 DialogResult result = selectProductForm.ShowDialog();
 
-                ProductID = selectProductForm.selected_product_id;
+                ProductID = selectProductForm.selected_control_id;
 
             }
             try
@@ -119,9 +119,8 @@ namespace Gotal_manager
                             int broj = reader.GetInt32("BrojProizvoda");
                             string naziv = reader.GetString("Naziv");
                             double cijena = reader.GetDouble("UlaznaCijena");
-                            double porez = reader.GetDouble("Porez") / 100;
                             StorageProductControlUserControl userControl =
-                                new StorageProductControlUserControl(productUserControls.Count, ProductID, broj, naziv, cijena, porez);
+                                new StorageProductControlUserControl(productUserControls.Count, ProductID, broj, naziv, cijena, 0);
                             MainFlowPanel.Controls.Add(userControl);
                             productUserControls.Add(userControl);
                         }

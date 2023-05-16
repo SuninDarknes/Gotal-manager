@@ -14,7 +14,7 @@ namespace Gotal_manager
     public partial class SelectProductForm : Form
     {
 
-        public int selected_product_id { get; set; }
+        public int selected_control_id { get; set; }
         public SelectProductForm()
         {
             InitializeComponent();

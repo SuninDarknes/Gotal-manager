@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gotal_manager.Inputs.Storage.SelectStorageProizvod;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,8 +25,8 @@ namespace Gotal_manager
         {
             InitializeComponent();
             this.id = id;
-            this.naziv= naziv;
-            labelBroj.Text= broj.ToString();
+            this.naziv = naziv;
+            labelBroj.Text = broj.ToString();
             labelNaziv.Text = naziv;
             labelCijena.Text = cijena.ToString();
 
@@ -34,11 +35,21 @@ namespace Gotal_manager
 
         private void buttonAddProduct_Click(object sender, EventArgs e)
         {
-            try {
-                SelectProductForm currForm = Form.ActiveForm as SelectProductForm;
-                currForm.selected_product_id = id;
-                currForm.Close();
+            try
+            {
+                SelectProductForm selectProductForm = Form.ActiveForm as SelectProductForm;
+                if (selectProductForm != null)
+                {
+                    selectProductForm.selected_control_id = id;
+                    selectProductForm.Close();
                 }
+                SelectStorageProizvodForm selectStorageProizvodForm = Form.ActiveForm as SelectStorageProizvodForm;
+                if (selectStorageProizvodForm != null)
+                {
+                    selectStorageProizvodForm.selected_control_id =  id;
+                    selectStorageProizvodForm.Close();
+                }
+            }
             catch
             {
 
